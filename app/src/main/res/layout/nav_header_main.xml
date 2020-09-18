@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="195dp"
+    android:background="@drawable/background_radian"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="4dp"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civProfileHeader"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_person_black_24dp"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/navName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Eleyeen"
+        android:paddingLeft="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/tvNavEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="eleenawan69@gmail.com" />
+</LinearLayout>

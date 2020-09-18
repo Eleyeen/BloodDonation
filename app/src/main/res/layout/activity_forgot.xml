@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_radian">
+
+
+    <ImageView
+
+        android:id="@+id/ivBloodIcon"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/blood"
+        android:textColor="#fff"
+        android:textSize="45dp" />
+
+    <TextView
+        android:id="@+id/tvForgot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivBloodIcon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Forgot Password"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/tvForgotDes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvForgot"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="Enter Your Email Address so we send you the instruction that how to reset your password"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/etForgot_Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/shapeemail"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawablePadding="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:hint="Email"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textColorHighlight="#fff"/>
+
+
+
+    <Button
+        android:id="@+id/btnSendCode"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/etForgot_Email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Send Code"
+        android:background="@drawable/shapelogin"
+        android:textAllCaps="false"
+        />
+
+</RelativeLayout>

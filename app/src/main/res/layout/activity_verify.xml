@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/background_radian"
+    android:layout_height="match_parent"
+    tools:context=".Activities.VerifyActivity">
+    <TextView
+        android:id="@+id/verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Verify"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/verifyDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:text="We have sent the code to your email, please enter that code below. "
+        android:layout_below="@id/verify"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+
+
+
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:id="@+id/ll_code_blocks"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_code_num1"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:textColor="#b4bfbf" />
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:id="@+id/et_code_num2"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:textColor="#b4bfbf" />
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:id="@+id/et_code_num3"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:inputType="phone"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:textColor="#b4bfbf" />
+
+        <EditText
+            android:imeOptions="actionDone"
+            android:id="@+id/et_code_num4"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:inputType="phone"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:maxLength="1"
+            android:textColor="#b4bfbf" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_verify"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center"
+        android:background="@drawable/shapelogin"
+        android:text="Verify"
+        android:textAllCaps="false"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        />
+
+</RelativeLayout>
