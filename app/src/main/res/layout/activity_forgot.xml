@@ -45,6 +45,7 @@
 
 
     <EditText
+        android:inputType="textEmailAddress"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/etForgot_Email"

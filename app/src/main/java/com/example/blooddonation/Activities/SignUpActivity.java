@@ -121,7 +121,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         strArea=etLocation.getText().toString();
         strGender=etGenderSignUp.getText().toString();
 
-
         if (strName.isEmpty()) {
             etNameSignUp.setError("enter a valid name");
             valid = false;
