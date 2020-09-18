@@ -47,15 +47,18 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify);
+        initUI();
     }
     private void initUI() {
         ButterKnife.bind(this);
+        btnVerify.setOnClickListener(this);
         btnVerify.setOnClickListener(this);
         et_num1.addTextChangedListener(genraltextWatcher);
         et_num2.addTextChangedListener(genraltextWatcher);
         et_num3.addTextChangedListener(genraltextWatcher);
         et_num4.addTextChangedListener(genraltextWatcher);
         progressDialog  = new ProgressDialog(VerifyActivity.this);
+
 
     }
 
