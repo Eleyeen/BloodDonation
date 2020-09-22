@@ -1,5 +1,5 @@
 
-package com.example.blooddonation.Models.NearModel;
+package com.example.blooddonation.Models.searchBloodGroupModel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,26 +9,18 @@ public class Datum {
     private String mAge;
     @SerializedName("area")
     private String mArea;
-    @SerializedName("group_name")
-    private String mBloodGroup;
-    @SerializedName("code")
-    private String mCode;
-    @SerializedName("created_at")
-    private String mCreatedAt;
     @SerializedName("email")
     private String mEmail;
     @SerializedName("fullname")
     private String mFullname;
     @SerializedName("gender")
     private String mGender;
-    @SerializedName("id")
-    private Long mId;
+    @SerializedName("group_name")
+    private String mGroupName;
     @SerializedName("phone")
     private String mPhone;
     @SerializedName("profile_image")
     private String mProfileImage;
-    @SerializedName("updated_at")
-    private String mUpdatedAt;
     @SerializedName("weight")
     private String mWeight;
 
@@ -46,30 +38,6 @@ public class Datum {
 
     public void setArea(String area) {
         mArea = area;
-    }
-
-    public String getBloodGroup() {
-        return mBloodGroup;
-    }
-
-    public void setBloodGroup(String bloodGroup) {
-        mBloodGroup = bloodGroup;
-    }
-
-    public String getCode() {
-        return mCode;
-    }
-
-    public void setCode(String code) {
-        mCode = code;
-    }
-
-    public String getCreatedAt() {
-        return mCreatedAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        mCreatedAt = createdAt;
     }
 
     public String getEmail() {
@@ -96,12 +64,12 @@ public class Datum {
         mGender = gender;
     }
 
-    public Long getId() {
-        return mId;
+    public String getGroupName() {
+        return mGroupName;
     }
 
-    public void setId(Long id) {
-        mId = id;
+    public void setGroupName(String groupName) {
+        mGroupName = groupName;
     }
 
     public String getPhone() {
@@ -118,14 +86,6 @@ public class Datum {
 
     public void setProfileImage(String profileImage) {
         mProfileImage = profileImage;
-    }
-
-    public String getUpdatedAt() {
-        return mUpdatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        mUpdatedAt = updatedAt;
     }
 
     public String getWeight() {

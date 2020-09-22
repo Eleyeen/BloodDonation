@@ -1,9 +1,5 @@
 package com.example.blooddonation.Activities;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.blooddonation.Models.GetDonor.Datum;
@@ -34,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int REQUEST_PHONE_CALL = 1;
     @BindView(R.id.civEditProfilePic)
     CircleImageView civProfilePic;
     @BindView(R.id.tvPersonName)
@@ -53,7 +55,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     TextView tvArea;
     @BindView(R.id.tvBlodGroupProfile)
     TextView tvBloodGroup;
-
+    String strPhone;
 
     @BindView(R.id.btnSendSms)
     Button btnSendSms;
@@ -72,54 +74,42 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         strUserId = GeneralUtills.getSharedPreferences(this).getString("user_id", "");
 
         iniListener();
-        APiGetProfileData(strUserId);
+//        APiGetProfileData(strUserId);
     }
+
     private void iniListener() {
         ButterKnife.bind(this);
         btnCall.setOnClickListener(this);
         btnSendSms.setOnClickListener(this);
-    }
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void APiGetProfileData(String userId) {
+
+        Bundle bundle = getIntent().getExtras();
+
+        Toast.makeText(this, "bundle  is Null", Toast.LENGTH_LONG).show();
+
+        if (bundle != null) {
+            Toast.makeText(this, "bundle  Not Null", Toast.LENGTH_LONG).show();
+            Glide.with(EditProfileActivity.this).load(bundle.getString("profile_image")).into(civProfilePic);
+
+            tvEmailProfile.setText(bundle.getString("email"));
+            tvAgeProfile.setText(bundle.getString("age"));
+            tvPersonName.setText(bundle.getString("fullname"));
+            tvGenderProfile.setText(bundle.getString("gender"));
+            tvPhoneProfile.setText(bundle.getString("phone"));
+            tvWeightProfile.setText(bundle.getString("weight"));
+            tvArea.setText(bundle.getString("area"));
+            tvBloodGroup.setText(bundle.getString("group_name"));
 
 
-        Call<GetAllDonorModel> getUserResponseModelCall = BaseNetworking.apiServices().getalldonorLogin(userId);
-
-        getUserResponseModelCall.enqueue(new Callback<GetAllDonorModel>() {
-            @Override
-            public void onResponse(Call<GetAllDonorModel> call, Response<GetAllDonorModel> response) {
-                itemModels.addAll(response.body().getData());
-                String strEmail = response.body().getData().get(0).getEmail();
-                String strFullName = response.body().getData().get(0).getFullname();
-                String  strGender= response.body().getData().get(0).getGender();
-                String  strAge= response.body().getData().get(0).getAge();
-                String  strWight= response.body().getData().get(0).getWeight();
-                String  strPhoneNum= response.body().getData().get(0).getPhone();
-                String  strArea= response.body().getData().get(0).getArea();
-                String strBloodGroup =response.body().getData().get(0).getBloodGroup();
-                Glide.with(EditProfileActivity.this).load(response.body().getData().get(0).getProfileImage()).into(civProfilePic);
+            strPhone =bundle.getString("phone") ;
 
 
-                tvEmailProfile.setText(strEmail);
-                tvAgeProfile.setText(strAge);
-                tvPersonName.setText(strFullName);
-                tvGenderProfile.setText(strGender);
-                tvPhoneProfile.setText(strPhoneNum);
-                tvWeightProfile.setText(strWight);
-                tvArea.setText(strArea);
-                tvBloodGroup.setText(strBloodGroup);
 
-            }
-
-            @Override
-            public void onFailure(Call<GetAllDonorModel> call, Throwable t) {
-                Log.d("zma error", String.valueOf(t));
-
-            }
-        });
+        }
     }
 
-    private void sentdSMS(String phone, String msg) {
+
+
+    private void SentdSMS(String phone, String msg) {
 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
@@ -143,8 +133,29 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
 
-        switch (view.getId())
-        {
+        switch (view.getId()) {
+
+            case R.id.btnCall :
+
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + strPhone));
+
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(EditProfileActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
+                    }
+                    else
+                    {
+                        startActivity(intent);
+                    }
+                } else {
+                    startActivity(intent);
+                }
+                break;
+            case R.id.btnSendSms:
+
+                String strMsg ="hfguhgjhkj";
+                SentdSMS(strPhone,strMsg);
+                break;
 
         }
     }

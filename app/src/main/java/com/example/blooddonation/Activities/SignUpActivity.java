@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     final int CAMERA_CAPTURE = 1;
     final int GALLERY_PIC = 2;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 1;
-    File file, sourceFile;
+    File  sourceFile;
     public static String fileName;
     public static final int REQUEST_IMAGE_CAPTURE = 0;
     ArrayList<Datum> listModels = new ArrayList<>();
@@ -143,7 +143,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             etNameSignUp.setError(null);
         }
-
         if (strEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()) {
             etEmailSignUp.setError("enter a valid email address");
             valid = false;
@@ -156,14 +155,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             dynamicSpinner.setError(null);
         }
-
         if (strPassword.isEmpty() || strPassword.length() < 6) {
             etPassword.setError("Password should be more than 6 characters");
             valid = false;
         } else {
             etPassword.setError(null);
         }
-
         if (strPhoneNumber.isEmpty()) {
             etPhoneNUmber.setError("Enter a Phone Number");
             valid = false;
@@ -209,26 +206,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             case REQUEST_IMAGE_CAPTURE:
                 if (resultCode == RESULT_OK) {
 
-                  /*  Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-                    sourceFile = new File(Environment.getExternalStorageDirectory(),
-                            System.currentTimeMillis() + ".png");
-                    FileOutputStream fo;
-                    try {
-                        sourceFile.createNewFile();
-                        fo = new FileOutputStream(sourceFile);
-                        fo.write(bytes.toByteArray());
-                        fo.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    image_uri = Uri.parse(sourceFile.getAbsolutePath());
-
-                    ivAddTransactionImage.setImageURI(image_uri);
-*/
 
                     sourceFile = new File(String.valueOf(getCacheImagePath(fileName)));
                     civProfile.setImageURI(getCacheImagePath(fileName));
@@ -244,8 +221,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     image_uri = data.getData();
                     sourceFile = new File(getImagePath(image_uri));
                     civProfile.setImageURI(image_uri);
-//                    btnDone.setEnabled(true);
-//                    btnDone.setBackground(getResources().getDrawable(R.drawable.round_button));
 
                 } else {
                     Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
@@ -276,70 +251,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void doSignUp() {
-        dialog.show();
-        ApiInterface services = APIClient.getApiClient().create(ApiInterface.class);
-
-        RequestBody BodyFullName = RequestBody.create(MediaType.parse("multipart/form-data"), strName);
-        RequestBody BodyEmail = RequestBody.create(MediaType.parse("multipart/form-data"), strEmail);
-        RequestBody BodyPassword = RequestBody.create(MediaType.parse("multipart/form-data"), strPassword);
-        RequestBody BodyPhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), strPhoneNumber);
-        RequestBody BodyAge = RequestBody.create(MediaType.parse("multipart/form-data"), strAge);
-        RequestBody BodyWeight = RequestBody.create(MediaType.parse("multipart/form-data"), strWeight);
-        RequestBody BodyGender = RequestBody.create(MediaType.parse("multipart/form-data"), strGender);
-        RequestBody BodyArea = RequestBody.create(MediaType.parse("multipart/form-data"), strArea);
-        RequestBody BodyBloodGroup = RequestBody.create(MediaType.parse("multipart/form-data"), strBloodGroup);
-
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), sourceFile);
-        final MultipartBody.Part profileImage = MultipartBody.Part.createFormData("profile_image", sourceFile.getName(), requestFile);
-        RequestBody BodyName = RequestBody.create(MediaType.parse("text/plain"), "upload-test");
-
-        Call<SignUpRespones> signupResponseModelCall = services.createUser(BodyFullName, BodyEmail, BodyPassword, BodyPhoneNumber, BodyAge, BodyWeight, BodyGender, BodyArea, BodyBloodGroup, profileImage, BodyName);
-        signupResponseModelCall.enqueue(new Callback<SignUpRespones>() {
-            @Override
-            public void onResponse(Call<SignUpRespones> call, Response<SignUpRespones> response) {
-                if (response.isSuccessful()) {
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_id", String.valueOf(response.body().getData().getId()));
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_name", response.body().getData().getFullname());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_email", response.body().getData().getEmail());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_BloodGroup", response.body().getData().getBloodGroup());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Age", response.body().getData().getAge());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Weight", response.body().getData().getWeight());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_phoneNUmber", response.body().getData().getPhone());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Location", response.body().getData().getArea());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_gender", response.body().getData().getGender());
-                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_profile_image", response.body().getData().getProfileImage());
-
-                    Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
-                    finishAffinity();
-                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(SignUpActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    dialog.dismiss();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<SignUpRespones> call, Throwable t) {
-                dialog.dismiss();
-                Toast.makeText(SignUpActivity.this, "Successful error" + t.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-    }
 
     public void permissionClass() {
 
@@ -525,6 +436,71 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onFailure(Call<GetBloodGroupNameModel> call, Throwable t) {
             }
         });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void doSignUp() {
+        dialog.show();
+        ApiInterface services = APIClient.getApiClient().create(ApiInterface.class);
+
+        RequestBody BodyFullName = RequestBody.create(MediaType.parse("multipart/form-data"), strName);
+        RequestBody BodyEmail = RequestBody.create(MediaType.parse("multipart/form-data"), strEmail);
+        RequestBody BodyPassword = RequestBody.create(MediaType.parse("multipart/form-data"), strPassword);
+        RequestBody BodyPhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), strPhoneNumber);
+        RequestBody BodyAge = RequestBody.create(MediaType.parse("multipart/form-data"), strAge);
+        RequestBody BodyWeight = RequestBody.create(MediaType.parse("multipart/form-data"), strWeight);
+        RequestBody BodyGender = RequestBody.create(MediaType.parse("multipart/form-data"), strGender);
+        RequestBody BodyArea = RequestBody.create(MediaType.parse("multipart/form-data"), strArea);
+        RequestBody BodyBloodGroup = RequestBody.create(MediaType.parse("multipart/form-data"), strBloodGroup);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), sourceFile);
+        final MultipartBody.Part profileImage = MultipartBody.Part.createFormData("profile_image", sourceFile.getName(), requestFile);
+        RequestBody BodyName = RequestBody.create(MediaType.parse("text/plain"), "upload-test");
+
+        Call<SignUpRespones> signupResponseModelCall = services.createUser(BodyFullName, BodyEmail, BodyPassword, BodyPhoneNumber, BodyAge, BodyWeight, BodyGender, BodyArea, BodyBloodGroup, profileImage, BodyName);
+        signupResponseModelCall.enqueue(new Callback<SignUpRespones>() {
+            @Override
+            public void onResponse(Call<SignUpRespones> call, Response<SignUpRespones> response) {
+                if (response.isSuccessful()) {
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_id", String.valueOf(response.body().getData().getId()));
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_name", response.body().getData().getFullname());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_email", response.body().getData().getEmail());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_BloodGroup", response.body().getData().getBloodGroup());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Age", response.body().getData().getAge());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Weight", response.body().getData().getWeight());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_phoneNUmber", response.body().getData().getPhone());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Location", response.body().getData().getArea());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_gender", response.body().getData().getGender());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_profile_image", response.body().getData().getProfileImage());
+
+                    Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                    finishAffinity();
+                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(SignUpActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    dialog.dismiss();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SignUpRespones> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(SignUpActivity.this, "Successful error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
     }
 

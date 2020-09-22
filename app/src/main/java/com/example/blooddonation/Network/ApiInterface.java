@@ -8,6 +8,7 @@ import com.example.blooddonation.Models.NearModel.NearByResponesModel;
 import com.example.blooddonation.Models.SignUp.SignUpRespones;
 import com.example.blooddonation.Models.Verify.VerifyResponseModel;
 import com.example.blooddonation.Models.changePassword.ChangePasswordModel;
+import com.example.blooddonation.Models.searchBloodGroupModel.SwarchBloodGroupRespones;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -75,6 +76,11 @@ public interface ApiInterface {
     @GET("getNearBy?")
     Call<NearByResponesModel> GetNearBy(
             @Query("cityname")String userCity
+    );
+
+    @GET("group_id?")
+    Call<SwarchBloodGroupRespones> GetSearchBloodGroup(
+            @Query("group_id")String userGroupId
     );
 
 

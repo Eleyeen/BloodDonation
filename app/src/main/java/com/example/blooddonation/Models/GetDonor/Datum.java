@@ -9,7 +9,7 @@ public class Datum {
     private String mAge;
     @SerializedName("area")
     private String mArea;
-    @SerializedName("blood_group")
+    @SerializedName("group_name")
     private String mBloodGroup;
     @SerializedName("code")
     private String mCode;

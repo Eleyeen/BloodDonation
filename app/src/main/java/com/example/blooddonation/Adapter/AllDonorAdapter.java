@@ -2,6 +2,7 @@ package com.example.blooddonation.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,21 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
         holder.cvCustomAllDonor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, EditProfileActivity.class));
+
+                Intent intent = new Intent(context, EditProfileActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("profile_image", getAllDonorModel.getProfileImage());
+                bundle.putString("fullname", getAllDonorModel.getFullname());
+                bundle.putString("email",getAllDonorModel.getEmail());
+                bundle.putString("phone", String.valueOf(getAllDonorModel.getPhone()));
+                bundle.putString("age", String.valueOf(getAllDonorModel.getAge()));
+                bundle.putString("gender", String.valueOf(getAllDonorModel.getGender()));
+                bundle.putString("weight", String.valueOf(getAllDonorModel.getWeight()));
+                bundle.putString("group_name", String.valueOf(getAllDonorModel.getBloodGroup()));
+                bundle.putString("area", String.valueOf(getAllDonorModel.getArea()));
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
 

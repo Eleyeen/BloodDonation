@@ -1,5 +1,6 @@
 package com.example.blooddonation.Activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.example.blooddonation.Models.Login.LoginResponesModel;
 import com.example.blooddonation.Network.APIClient;
 import com.example.blooddonation.Network.ApiInterface;
 import com.example.blooddonation.R;
+import com.example.blooddonation.Utails.AlertUtils;
 import com.example.blooddonation.Utails.GeneralUtills;
 
 import org.json.JSONException;
@@ -48,12 +50,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.cbRememberMe)
     CheckBox cbRememberMe;
     String strUserEmail, strUserPassword;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        dialog = AlertUtils.createProgressDialog(this);
+
         if (GeneralUtills.isLogin(this)) {
             finishAffinity();
             startActivity(new Intent(this, HomePageActivity.class));
@@ -75,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
-
                 if (inValid()) {
                     doLogin();
                 }
@@ -88,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, ForgotActivity.class));
                 break;
             case R.id.tvSkipLogin:
-                startActivity(new Intent(LoginActivity.this,HomePageActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
         }
     }
 
@@ -118,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void doLogin() {
+        dialog.show();
         ApiInterface services = APIClient.getApiClient().create(ApiInterface.class);
         final Call<LoginResponesModel> userLogin = services.loginUser(strUserEmail, strUserPassword);
 
@@ -134,7 +139,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     GeneralUtills.putBooleanValueInEditor(LoginActivity.this, "isLogin", true);
                     finishAffinity();
                     startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
-
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -144,13 +148,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
+                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponesModel> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, " Success Error", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonation.Models.GetBloodGroupModel.Datum;
@@ -40,6 +41,12 @@ public  class BloodGroupAdapter extends RecyclerView.Adapter<BloodGroupAdapter.V
     public void onBindViewHolder(@NonNull BloodGroupAdapter.ViewHolder holder, int position) {
         final Datum getBloodGroupModel = getBloodGroup.get(position);
         holder.tvBloodGroup.setText(getBloodGroupModel.getName());
+        holder.cvCustomBloodGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -50,9 +57,11 @@ public  class BloodGroupAdapter extends RecyclerView.Adapter<BloodGroupAdapter.V
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvBloodGroup;
+        CardView cvCustomBloodGroup;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvBloodGroup = itemView.findViewById(R.id.tvBloodGroupCustom);
+            cvCustomBloodGroup=itemView.findViewById(R.id.cvCustomBloodGroup);
         }
     }
 }

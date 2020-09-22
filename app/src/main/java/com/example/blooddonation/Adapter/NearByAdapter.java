@@ -2,6 +2,7 @@ package com.example.blooddonation.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,19 @@ public class NearByAdapter extends RecyclerView.Adapter<NearByAdapter.ViewHolder
         holder.cvCustomAllDonor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, EditProfileActivity.class));
-            }
+                Intent intent = new Intent(context, EditProfileActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("profile_image", getNearByModel.getProfileImage());
+                bundle.putString("fullname", getNearByModel.getFullname());
+                bundle.putString("email",getNearByModel.getEmail());
+                bundle.putString("phone", String.valueOf(getNearByModel.getPhone()));
+                bundle.putString("age", String.valueOf(getNearByModel.getAge()));
+                bundle.putString("gender", String.valueOf(getNearByModel.getGender()));
+                bundle.putString("weight", String.valueOf(getNearByModel.getWeight()));
+                bundle.putString("group_name", String.valueOf(getNearByModel.getBloodGroup()));
+                bundle.putString("area", String.valueOf(getNearByModel  .getArea()));
+                intent.putExtras(bundle);
+                context.startActivity(intent);            }
         });
 
     }

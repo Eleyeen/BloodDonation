@@ -6,6 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
+        android:id="@+id/cvCustomBloodGroup"
         android:layout_height="150dp"
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp"
