@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Profile"
+            android:textColor="#344356"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civEditProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/tvProfile"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_person_black_24dp" />
+
+        <TextView
+            android:id="@+id/tvNameProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/civEditProfilePic"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Name"
+            android:textColor="#808A98" />
+
+        <TextView
+
+            android:id="@+id/tvPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNameProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="EA Eleyeen"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvEmailProfileTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPersonName"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Email"
+            android:textColor="#808A98" />
+
+        <TextView
+            android:id="@+id/tvEmailProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEmailProfileTittle"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="eleenawan69@gmail.com"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tvPhoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEmailProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Phone Number"
+            android:textColor="#808A98" />
+
+
+        <TextView
+            android:id="@+id/tvPhoneProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPhoneNum"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="123456789"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tvGenderTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPhoneProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Gender"
+            android:textColor="#808A98" />
+
+        <TextView
+
+            android:id="@+id/tvGenderProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGenderTittle"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="Male"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvAgeTittleProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGenderProfile"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Age"
+            android:textColor="#808A98" />
+
+        <TextView
+            android:id="@+id/tvAgeProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAgeTittleProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="20"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tvWeightTittleProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAgeProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Weight"
+            android:textColor="#808A98" />
+
+
+        <TextView
+            android:id="@+id/tvWeightProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWeightTittleProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="50"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+
+
+        <TextView
+            android:id="@+id/tvBlodGroupTittleProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWeightProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Blood Group"
+            android:textColor="#808A98" />
+
+
+        <TextView
+            android:id="@+id/tvBlodGroupProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBlodGroupTittleProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="A+"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tvAreaTittleProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBlodGroupProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Area"
+            android:textColor="#808A98" />
+
+        <TextView
+            android:id="@+id/tvAreaProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAreaTittleProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Peshawar"
+            android:textColor="#344356"
+            android:textSize="18sp" />
+
+
+
+        <Button
+            android:id="@+id/btnSendSms"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAreaProfile"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/call_button"
+            android:text="Send SMS"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/btnCall"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAreaProfile"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/call_button"
+            android:text="Call"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

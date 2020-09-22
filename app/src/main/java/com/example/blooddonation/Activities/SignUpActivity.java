@@ -1,14 +1,9 @@
 package com.example.blooddonation.Activities;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,20 +12,31 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import com.example.blooddonation.Adapter.AutoCompleteIngredientsAdapter;
 import com.example.blooddonation.BuildConfig;
+import com.example.blooddonation.Models.GetBloodGroupModel.Datum;
+import com.example.blooddonation.Models.GetBloodGroupModel.GetBloodGroupNameModel;
 import com.example.blooddonation.Models.SignUp.SignUpRespones;
 import com.example.blooddonation.Network.APIClient;
 import com.example.blooddonation.Network.ApiInterface;
 import com.example.blooddonation.R;
+import com.example.blooddonation.Utails.AlertUtils;
 import com.example.blooddonation.Utails.GeneralUtills;
+import com.example.blooddonation.interfaces.BloodGroupItemId;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -43,6 +49,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +65,7 @@ import retrofit2.Response;
 
 import static androidx.core.content.FileProvider.getUriForFile;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, BloodGroupItemId {
     Uri image_uri, cameraImageUri;
     final int CAMERA_CAPTURE = 1;
     final int GALLERY_PIC = 2;
@@ -66,7 +73,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     File file, sourceFile;
     public static String fileName;
     public static final int REQUEST_IMAGE_CAPTURE = 0;
+    ArrayList<Datum> listModels = new ArrayList<>();
 
+    AutoCompleteIngredientsAdapter adapter;
+    private String strItemBloodGroup = "";
 
     @BindView(R.id.civProfilePic)
     CircleImageView civProfile;
@@ -76,8 +86,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText etGenderSignUp;
     @BindView(R.id.etEmailSignUp)
     EditText etEmailSignUp;
-    @BindView(R.id.etBloodGroupSignUp)
-    EditText etBloodGroup;
     @BindView(R.id.etPasswordSignUp)
     EditText etPassword;
     @BindView(R.id.etPhoneNumSignUp)
@@ -91,35 +99,43 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.tvLogin)
     TextView tvLogin;
 
+    @BindView(R.id.spItemBloodGroup)
+    AutoCompleteTextView dynamicSpinner;
     @BindView(R.id.btnRegister)
     Button btnRegister;
+    Dialog dialog;
+    String strName, strBloodGroup, strEmail, strPassword, strPhoneNumber, strAge, strWeight, strArea, strGender;
 
-    String strName, strBloodGroup, strEmail, strPassword, strPhoneNumber,strAge,strWeight ,strArea,strGender;
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
+        dialog = AlertUtils.createProgressDialog(this);
 
         iniListener();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void iniListener() {
         btnRegister.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
         civProfile.setOnClickListener(this);
+        getItem();
     }
+
     private boolean validate() {
         boolean valid = true;
         strName = etNameSignUp.getText().toString();
-        strBloodGroup = etBloodGroup.getText().toString();
+        strBloodGroup = dynamicSpinner.getText().toString();
         strEmail = etEmailSignUp.getText().toString();
         strPassword = etPassword.getText().toString();
         strPhoneNumber = etPhoneNUmber.getText().toString();
         strAge = etAge.getText().toString();
-        strWeight= etWeight.getText().toString();
-        strArea=etLocation.getText().toString();
-        strGender=etGenderSignUp.getText().toString();
+        strWeight = etWeight.getText().toString();
+        strArea = etLocation.getText().toString();
+        strGender = etGenderSignUp.getText().toString();
 
         if (strName.isEmpty()) {
             etNameSignUp.setError("enter a valid name");
@@ -135,10 +151,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             etEmailSignUp.setError(null);
         }
         if (strBloodGroup.isEmpty()) {
-            etBloodGroup.setError("enter a Blood Group");
+            dynamicSpinner.setError("enter a Blood Group");
             valid = false;
         } else {
-            etBloodGroup.setError(null);
+            dynamicSpinner.setError(null);
         }
 
         if (strPassword.isEmpty() || strPassword.length() < 6) {
@@ -148,50 +164,110 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             etPassword.setError(null);
         }
 
-        if (strPhoneNumber.isEmpty() ) {
+        if (strPhoneNumber.isEmpty()) {
             etPhoneNUmber.setError("Enter a Phone Number");
             valid = false;
         } else {
             etPassword.setError(null);
         }
-        if (strAge.isEmpty()){
+        if (strAge.isEmpty()) {
             etAge.setError("Enter a Age");
-        }else {
+        } else {
             etAge.setError(null);
         }
-        if(strWeight.isEmpty()){
+        if (strWeight.isEmpty()) {
             etWeight.setError("Enter a Weight");
-        }else {
+        } else {
             etWeight.setError(null);
         }
-        if(strArea.isEmpty()){
+        if (strArea.isEmpty()) {
             etLocation.setError("Enter a Location");
-        }else {
+        } else {
             etLocation.setError(null);
         }
-        if(strGender.isEmpty()){
+        if (strGender.isEmpty()) {
             etGenderSignUp.setError("Enter a Gender");
-        }else {
+        } else {
             etGenderSignUp.setError(null);
         }
-
 
 
         return valid;
     }
 
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        switch (requestCode) {
+
+
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == RESULT_OK) {
+
+                  /*  Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+                    sourceFile = new File(Environment.getExternalStorageDirectory(),
+                            System.currentTimeMillis() + ".png");
+                    FileOutputStream fo;
+                    try {
+                        sourceFile.createNewFile();
+                        fo = new FileOutputStream(sourceFile);
+                        fo.write(bytes.toByteArray());
+                        fo.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    image_uri = Uri.parse(sourceFile.getAbsolutePath());
+
+                    ivAddTransactionImage.setImageURI(image_uri);
+*/
+
+                    sourceFile = new File(String.valueOf(getCacheImagePath(fileName)));
+                    civProfile.setImageURI(getCacheImagePath(fileName));
+
+
+                } else {
+                    Toast.makeText(this, "no image selected", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case GALLERY_PIC:
+                if (resultCode == RESULT_OK) {
+                    image_uri = data.getData();
+                    sourceFile = new File(getImagePath(image_uri));
+                    civProfile.setImageURI(image_uri);
+//                    btnDone.setEnabled(true);
+//                    btnDone.setBackground(getResources().getDrawable(R.drawable.round_button));
+
+                } else {
+                    Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
+                }
+
+
+        }
+
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.btnRegister:
                 if (validate()) {
                     doSignUp();
                 }
                 break;
             case R.id.tvLogin:
-                startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                 break;
             case R.id.civProfilePic:
                 permissionClass();
@@ -202,10 +278,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void doSignUp() {
+        dialog.show();
         ApiInterface services = APIClient.getApiClient().create(ApiInterface.class);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), sourceFile);
-        final MultipartBody.Part profileImage = MultipartBody.Part.createFormData("profile_image", sourceFile.getName(), requestFile);
-        RequestBody BodyName = RequestBody.create(MediaType.parse("text/plain"), "upload-test");
+
         RequestBody BodyFullName = RequestBody.create(MediaType.parse("multipart/form-data"), strName);
         RequestBody BodyEmail = RequestBody.create(MediaType.parse("multipart/form-data"), strEmail);
         RequestBody BodyPassword = RequestBody.create(MediaType.parse("multipart/form-data"), strPassword);
@@ -216,8 +291,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         RequestBody BodyArea = RequestBody.create(MediaType.parse("multipart/form-data"), strArea);
         RequestBody BodyBloodGroup = RequestBody.create(MediaType.parse("multipart/form-data"), strBloodGroup);
 
-        final Call<SignUpRespones> signupResponseModelCall = services.createUser(BodyFullName, BodyEmail, BodyPassword,BodyPhoneNumber,BodyAge,BodyWeight,BodyGender,BodyArea,BodyBloodGroup,profileImage,BodyName );
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), sourceFile);
+        final MultipartBody.Part profileImage = MultipartBody.Part.createFormData("profile_image", sourceFile.getName(), requestFile);
+        RequestBody BodyName = RequestBody.create(MediaType.parse("text/plain"), "upload-test");
 
+        Call<SignUpRespones> signupResponseModelCall = services.createUser(BodyFullName, BodyEmail, BodyPassword, BodyPhoneNumber, BodyAge, BodyWeight, BodyGender, BodyArea, BodyBloodGroup, profileImage, BodyName);
         signupResponseModelCall.enqueue(new Callback<SignUpRespones>() {
             @Override
             public void onResponse(Call<SignUpRespones> call, Response<SignUpRespones> response) {
@@ -246,7 +324,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-//                    dialog.dismiss();
+                    dialog.dismiss();
                 }
 
 
@@ -254,7 +332,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailure(Call<SignUpRespones> call, Throwable t) {
-//                dialog.dismiss();
+                dialog.dismiss();
                 Toast.makeText(SignUpActivity.this, "Successful error" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
@@ -262,9 +340,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     }
-
-
-
 
     public void permissionClass() {
 
@@ -339,7 +414,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return getUriForFile(SignUpActivity.this, getPackageName() + ".provider", image);
     }
 
-
     public void intentGalleryPic() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -353,7 +427,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
-
 
     private String getImageFromFilePath(Intent data) {
         boolean isCamera = data == null || data.getData() == null;
@@ -381,67 +454,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
         }
         return outputFileUri;
-    }
-
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-        switch (requestCode) {
-
-
-            case REQUEST_IMAGE_CAPTURE:
-                if (resultCode == RESULT_OK) {
-
-                  /*  Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    thumbnail.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-                    sourceFile = new File(Environment.getExternalStorageDirectory(),
-                            System.currentTimeMillis() + ".png");
-                    FileOutputStream fo;
-                    try {
-                        sourceFile.createNewFile();
-                        fo = new FileOutputStream(sourceFile);
-                        fo.write(bytes.toByteArray());
-                        fo.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    image_uri = Uri.parse(sourceFile.getAbsolutePath());
-
-                    ivAddTransactionImage.setImageURI(image_uri);
-*/
-
-                    sourceFile =new File(String.valueOf(getCacheImagePath(fileName)));
-                    civProfile.setImageURI(getCacheImagePath(fileName));
-
-
-                } else {
-                    Toast.makeText(this, "no image selected", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case GALLERY_PIC:
-                if (resultCode == RESULT_OK) {
-                    image_uri = data.getData();
-                    sourceFile = new File(getImagePath(image_uri));
-                    civProfile.setImageURI(image_uri);
-//                    btnDone.setEnabled(true);
-//                    btnDone.setBackground(getResources().getDrawable(R.drawable.round_button));
-
-                } else {
-                    Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                }
-
-
-        }
-
     }
 
 
@@ -476,9 +488,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return mFile;
     }
 
-    /**
-     * Get real file path from URI
-     */
     public String getRealPathFromUri(Uri contentUri) {
         Cursor cursor = null;
         try {
@@ -495,10 +504,33 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void getItem() {
+        ApiInterface services = APIClient.getApiClient().create(ApiInterface.class);
 
+        Call<GetBloodGroupNameModel> call = services.getgroups();
 
+        call.enqueue(new Callback<GetBloodGroupNameModel>() {
+            @Override
+            public void onResponse(Call<GetBloodGroupNameModel> call, Response<GetBloodGroupNameModel> response) {
+                if (response.isSuccessful()) {
+                    listModels.addAll(response.body().getData());
+                    adapter = new AutoCompleteIngredientsAdapter(SignUpActivity.this, listModels, SignUpActivity.this);
+                    dynamicSpinner.setAdapter(adapter);
+                }
 
+            }
 
+            @Override
+            public void onFailure(Call<GetBloodGroupNameModel> call, Throwable t) {
+            }
+        });
 
+    }
 
+    @Override
+    public void bloodGroupItem(String id) {
+        strItemBloodGroup = id;
+
+    }
 }

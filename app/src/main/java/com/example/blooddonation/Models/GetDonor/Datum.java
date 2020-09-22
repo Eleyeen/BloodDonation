@@ -1,9 +1,9 @@
 
-package com.example.blooddonation.Models.Login;
+package com.example.blooddonation.Models.GetDonor;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+public class Datum {
 
     @SerializedName("age")
     private String mAge;

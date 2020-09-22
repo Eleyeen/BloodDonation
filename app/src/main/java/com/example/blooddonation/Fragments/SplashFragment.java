@@ -40,26 +40,6 @@ public class SplashFragment extends Fragment {
             public void onFinish() {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
 
-//                SharedPreferences prefsd = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//                Boolean yourLock = prefsd.getBoolean("lockedP", false);
-//
-//                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//                Boolean yourLocked = prefs.getBoolean("locked", false);
-//                if(yourLocked){
-//                    Intent intent = new Intent(getActivity(), BottomBarActivity
-//                            .class);
-//                    startActivity(intent);
-//
-//                }else if(yourLock){
-//                    Intent intent = new Intent(getActivity(), BottomBarActivity
-//                            .class);
-//                    startActivity(intent);
-//
-//                }else{
-//                    Intent intent = new Intent(getActivity(), SliderActivity.class);
-//                    startActivity(intent);
-//
-//                }
 
 
             }

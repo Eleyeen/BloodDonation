@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.blooddonation.Fragments.Home.HomeFragment;
 import com.example.blooddonation.Models.Login.LoginResponesModel;
 import com.example.blooddonation.Network.APIClient;
 import com.example.blooddonation.Network.ApiInterface;
@@ -43,6 +42,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView tvSignUp;
     @BindView(R.id.tvForgetPassword)
     TextView tvForgotPassword;
+
+    @BindView(R.id.tvSkipLogin)
+    TextView tvSkipLogin;
     @BindView(R.id.cbRememberMe)
     CheckBox cbRememberMe;
     String strUserEmail, strUserPassword;
@@ -65,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin.setOnClickListener(this);
         tvSignUp.setOnClickListener(this);
         tvForgotPassword.setOnClickListener(this);
+        tvSkipLogin.setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -84,6 +87,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tvForgetPassword:
                 startActivity(new Intent(LoginActivity.this, ForgotActivity.class));
                 break;
+            case R.id.tvSkipLogin:
+                startActivity(new Intent(LoginActivity.this,HomePageActivity.class));
         }
     }
 
@@ -122,6 +127,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<LoginResponesModel> call, Response<LoginResponesModel> response) {
 
                 if (response.isSuccessful()) {
+                    GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_id", String.valueOf(response.body().getData().getId()));
+                    GeneralUtills.putStringValueInEditor(LoginActivity.this, "area", String.valueOf(response.body().getData().getArea()));
 
                     Toast.makeText(LoginActivity.this, "isSuccessful", Toast.LENGTH_SHORT).show();
                     GeneralUtills.putBooleanValueInEditor(LoginActivity.this, "isLogin", true);

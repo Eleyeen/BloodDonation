@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorScreen"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_outer"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        card_view:cardBackgroundColor="@android:color/transparent"
+        card_view:cardCornerRadius="1dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/linearrow"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/tv_autocoplete_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp"
+                android:gravity="center"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

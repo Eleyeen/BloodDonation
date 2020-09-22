@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_radian"
     tools:context=".Activities.SignUpActivity">
 
@@ -132,28 +133,61 @@
             android:textColorHighlight="#fff"
             android:textColorHint="#fff" />
 
-        <EditText
-            android:inputType="text"
-            android:id="@+id/etBloodGroupSignUp"
-            android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAddGrocery"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etLocationSignUp"
+            android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
-            android:background="@drawable/shapeemail"
-            android:drawableLeft="@drawable/ic_baseline_blood_colors_24"
-            android:drawablePadding="10dp"
-            android:hint="Blood Group"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:textColorHighlight="#fff"
-            android:textColorHint="#fff" />
+            android:background="@drawable/background_radian"
+            app:cardCornerRadius="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_radian">
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/spItemBloodGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:completionThreshold="1"
+                    android:imeOptions="actionDone"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/shapeemail"
+                    android:drawableLeft="@drawable/ic_baseline_blood_colors_24"
+
+                    android:layout_margin="10dp"
+                    android:drawablePadding="10dp"
+                    android:hint="Blood Group"
+                    android:padding="15dp"
+                    android:textColor="#fff"
+                    android:textColorHighlight="#fff"
+                    android:textColorHint="#fff"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:id="@+id/vView"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/spItemBloodGroup"
+                    android:background="@color/colorScreen" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
 
         <EditText
             android:inputType="text"
             android:id="@+id/etGenderSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etBloodGroupSignUp"
+            android:layout_below="@+id/cvAddGrocery"
             android:layout_margin="10dp"
             android:background="@drawable/shapeemail"
             android:drawableLeft="@drawable/ic_baseline_blood_colors_24"
