@@ -15,12 +15,13 @@
 
     <fragment
         android:id="@+id/nav_allDonorSideBar"
-        android:name="com.example.blooddonation.Fragments.AllDonor.AllDonorFragment"
-        android:label="gallery"
+        android:name="com.example.blooddonation.Fragments.AllDonorFragment"
+        android:label="All Donor"
         tools:layout="@layout/fragment_all_donor2" />
 
     <fragment
         android:id="@+id/nav_NearByy"
-android:name="com.example.blooddonation.Fragments.NearBy.NearByFragment"        android:label="slideshow"
+        android:name="com.example.blooddonation.Fragments.NearByFragment"
+        android:label="Near By"
         tools:layout="@layout/fragment_near_by2" />
 </navigation>

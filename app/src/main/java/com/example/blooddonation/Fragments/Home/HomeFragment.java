@@ -62,9 +62,6 @@ public class HomeFragment extends Fragment  implements View.OnClickListener {
 
     private void setupViewPager(final ViewPager viewPager) {
 
-//        SharedPreferencesUtils.putStringValueInEditor(MainTabActivity.this, "image_sorting", "views");
-//        fullViewWallpaperDataModels = ViewsFragment.viewWallpaperDataModels;
-
         MainTabScreenViewPagerAdapter adapter = new MainTabScreenViewPagerAdapter(getFragmentManager());
 
         adapter.addFragment(new BloodGroupFragment(), "Blood Group");

@@ -1,6 +1,8 @@
 package com.example.blooddonation.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.blooddonation.Activities.EditProfileActivity;
+import com.example.blooddonation.Activities.SearchBloodGroupActivity;
 import com.example.blooddonation.Models.GetBloodGroupModel.Datum;
 import com.example.blooddonation.R;
 
@@ -44,6 +48,12 @@ public  class BloodGroupAdapter extends RecyclerView.Adapter<BloodGroupAdapter.V
         holder.cvCustomBloodGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, SearchBloodGroupActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("id",getBloodGroupModel.getId());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
 
             }
         });

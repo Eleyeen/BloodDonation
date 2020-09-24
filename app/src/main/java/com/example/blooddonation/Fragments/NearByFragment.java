@@ -60,7 +60,6 @@ public class NearByFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiNearBy(String strCityName) {
-        Toast.makeText(getActivity(), "All Donor Login", Toast.LENGTH_SHORT).show();
         Call<NearByResponesModel> getUserResponseModelCall = BaseNetworking.apiServices().GetNearBy(strCityName);
         getUserResponseModelCall.enqueue(new Callback<NearByResponesModel>() {
             @Override
@@ -98,7 +97,6 @@ public class NearByFragment extends Fragment {
     public void onResume() {
         super.onResume();
         allDonor.clear();
-        APiNearBy(strCityName);
         linearLayoutManager.onRestoreInstanceState(state);
     }
 

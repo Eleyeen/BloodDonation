@@ -72,8 +72,13 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        if(GeneralUtills.isLogin(this)){
+            getMenuInflater().inflate(R.menu.menu_login, menu);
+
+        }else {
+            getMenuInflater().inflate(R.menu.menu, menu);
+        }
+
         return true;
     }
 
@@ -83,6 +88,14 @@ public class HomePageActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
                 LOGOUT();
+                break;
+
+            case R.id.action_Login:
+                startActivity(new Intent(HomePageActivity.this,LoginActivity.class));
+                break;
+
+            case R.id.action_SignUp:
+                startActivity(new Intent(HomePageActivity.this,SignUpActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

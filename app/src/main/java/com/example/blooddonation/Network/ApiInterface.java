@@ -78,7 +78,7 @@ public interface ApiInterface {
             @Query("cityname")String userCity
     );
 
-    @GET("group_id?")
+    @GET("searchdonors?")
     Call<SwarchBloodGroupRespones> GetSearchBloodGroup(
             @Query("group_id")String userGroupId
     );

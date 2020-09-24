@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_SignUp"
-        android:orderInCategory="100"
-        android:title="SignUp"
-        app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_Login"
-        android:orderInCategory="100"
-        android:title="Log In"
-        app:showAsAction="never" />
     <item
         android:id="@+id/action_RateUs"
         android:orderInCategory="100"
@@ -30,6 +20,10 @@
         android:title="About Us"
         app:showAsAction="never" />
 
-
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="LogOut"
+        app:showAsAction="never" />
 
 </menu>

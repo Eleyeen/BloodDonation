@@ -62,7 +62,6 @@ String strUseId;
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiGetAllDonor() {
 
-        Toast.makeText(getActivity(), "All Donor WithOut Login", Toast.LENGTH_SHORT).show();
         Call<GetAllDonorModel> getUserResponseModelCall = BaseNetworking.apiServices().getalldonors();
 
         getUserResponseModelCall.enqueue(new Callback<GetAllDonorModel>() {
@@ -87,7 +86,6 @@ String strUseId;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiGetAllDonorLogin(String strUserId) {
-        Toast.makeText(getActivity(), "All Donor Login", Toast.LENGTH_SHORT).show();
         Call<GetAllDonorModel> getUserResponseModelCall = BaseNetworking.apiServices().getalldonorLogin(strUserId);
 
         getUserResponseModelCall.enqueue(new Callback<GetAllDonorModel>() {
@@ -125,7 +123,6 @@ String strUseId;
     public void onResume() {
         super.onResume();
         allDonor.clear();
-        APiGetAllDonor();
         linearLayoutManager.onRestoreInstanceState(state);
     }
 

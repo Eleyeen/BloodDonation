@@ -90,7 +90,6 @@ public class BloodGroupFragment extends Fragment {
     public void onResume() {
         super.onResume();
         itemLists.clear();
-        APiGetBloodGroup();
     }
 
 
