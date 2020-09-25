@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.GetBloodGroupDonorActivity">
+
+    <LinearLayout
+        android:id="@+id/llBloodGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:id="@+id/tvBloodGroup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvNoDonorFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/screen_margin"
+        android:layout_below="@id/llBloodGroupName"
+        android:text="No Donor Found"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllDonor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/screen_margin"
+        android:layout_below="@id/llBloodGroupName" />
+
+
+</RelativeLayout>

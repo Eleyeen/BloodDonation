@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.blooddonation.Fragments.SplashFragment;
+import com.example.blooddonation.fragments.SplashFragment;
 
 public class MainActivity extends AppCompatActivity {
 

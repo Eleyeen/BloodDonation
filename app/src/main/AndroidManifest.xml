@@ -15,15 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".Activities.SearchBloodGroupActivity"></activity>
-        <activity android:name=".Activities.EditProfileActivity" />
-        <activity android:name=".Activities.ChangePasswordActivity" />
-        <activity android:name=".Activities.VerifyActivity" />
-        <activity android:name=".Activities.HomePageActivity" />
-        <activity android:name=".Activities.ForgotActivity" />
-        <activity android:name=".Activities.SignUpActivity" />
-        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".activities.GetBloodGroupDonorActivity"></activity>
+        <activity android:name=".activities.EditProfileActivity" />
+        <activity android:name=".activities.ChangePasswordActivity" />
+        <activity android:name=".activities.VerifyActivity" />
+        <activity android:name=".activities.HomePageActivity" />
+        <activity android:name=".activities.ForgotActivity" />
+        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

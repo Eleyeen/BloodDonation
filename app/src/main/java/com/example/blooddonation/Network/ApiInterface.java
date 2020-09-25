@@ -1,14 +1,13 @@
 package com.example.blooddonation.Network;
 
-import com.example.blooddonation.Models.Forgot.ForgotResponesModel;
-import com.example.blooddonation.Models.GetBloodGroupModel.GetBloodGroupNameModel;
-import com.example.blooddonation.Models.GetDonor.GetAllDonorModel;
-import com.example.blooddonation.Models.Login.LoginResponesModel;
-import com.example.blooddonation.Models.NearModel.NearByResponesModel;
-import com.example.blooddonation.Models.SignUp.SignUpRespones;
-import com.example.blooddonation.Models.Verify.VerifyResponseModel;
-import com.example.blooddonation.Models.changePassword.ChangePasswordModel;
-import com.example.blooddonation.Models.searchBloodGroupModel.SwarchBloodGroupRespones;
+import com.example.blooddonation.models.Forgot.ForgotRespones;
+import com.example.blooddonation.models.GetBloodGroupModel.GetBloodGroupNameModel;
+import com.example.blooddonation.models.GetDonor.DonorResponse;
+import com.example.blooddonation.models.Login.LoginRespones;
+import com.example.blooddonation.models.NearModel.NearByResponesModel;
+import com.example.blooddonation.models.Verify.VerifyPasswordResponse;
+import com.example.blooddonation.models.changePassword.ChangePasswordResponse;
+import com.example.blooddonation.models.signUpModel.SignUpRespones;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -25,7 +24,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponesModel> loginUser(
+    Call<LoginRespones> loginUser(
             @Field("email") String userLogin,
             @Field("password") String userPassword);
 
@@ -41,48 +40,48 @@ public interface ApiInterface {
             @Part("weight") RequestBody userWeight,
             @Part("gender") RequestBody userGender,
             @Part("area") RequestBody userArea,
-            @Part("blood_group") RequestBody userBloodGroup,
+            @Part("group_id") RequestBody userBloodGroup,
             @Part MultipartBody.Part photo,
             @Part("profile_image") RequestBody fileName);
 
 
     @FormUrlEncoded
     @POST("reset")
-    Call<ForgotResponesModel> resetPassword(@Field("email") String email);
+    Call<ForgotRespones> resetPassword(@Field("email") String email);
 
 
     @FormUrlEncoded
     @POST("checkCode")
-    Call<VerifyResponseModel> userVerification(
+    Call<VerifyPasswordResponse> userVerification(
             @Field("code") String code,
             @Field("email") String email
     );
 
     @FormUrlEncoded
     @POST("ChangePassword")
-    Call<ChangePasswordModel> changePassword(
+    Call<ChangePasswordResponse> changePassword(
             @Field("email") String email,
             @Field("newPassword") String code);
+
     @GET("getalldonors")
-    Call<GetAllDonorModel> getalldonors();
+    Call<DonorResponse> getalldonors();
 
     @GET("getgroups")
     Call<GetBloodGroupNameModel> getgroups();
 
     @GET("bloodgroups?")
-    Call<GetAllDonorModel> getalldonorLogin(
+    Call<DonorResponse> getalldonorLogin(
             @Query("user_id") String userId);
 
     @GET("getNearBy?")
     Call<NearByResponesModel> GetNearBy(
-            @Query("cityname")String userCity
+            @Query("cityname") String userCity
     );
 
     @GET("searchdonors?")
-    Call<SwarchBloodGroupRespones> GetSearchBloodGroup(
-            @Query("group_id")String userGroupId
+    Call<DonorResponse> GetSearchBloodGroup(
+            @Query("group_id") String userGroupId
     );
-
 
 
 }

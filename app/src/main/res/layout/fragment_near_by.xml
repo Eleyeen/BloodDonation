@@ -3,7 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.NearByFragment">
+    tools:context=".fragments.NearByFragment">
+
+  <TextView
+      android:visibility="gone"
+      android:id="@+id/tvNoDonorFound"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="40dp"
+      android:text="No Donor Found"
+      android:gravity="center_horizontal"/>
+
 
   <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"

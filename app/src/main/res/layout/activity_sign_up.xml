@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_radian"
-    tools:context=".Activities.SignUpActivity">
+    tools:context=".activities.SignUpActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -133,76 +132,91 @@
             android:textColorHighlight="#fff"
             android:textColorHint="#fff" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvAddGrocery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etLocationSignUp"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/background_radian"
-            app:cardCornerRadius="15dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background_radian">
-
-
-                <AutoCompleteTextView
-                    android:id="@+id/spItemBloodGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:completionThreshold="1"
-                    android:imeOptions="actionDone"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/shapeemail"
-                    android:drawableLeft="@drawable/ic_baseline_blood_colors_24"
-
-                    android:layout_margin="10dp"
-                    android:drawablePadding="10dp"
-                    android:hint="Blood Group"
-                    android:padding="15dp"
-                    android:textColor="#fff"
-                    android:textColorHighlight="#fff"
-                    android:textColorHint="#fff"
-                    tools:ignore="RtlSymmetry" />
-
-                <View
-                    android:id="@+id/vView"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/spItemBloodGroup"
-                    android:background="@color/colorScreen" />
-
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-
-
-        <EditText
-            android:inputType="text"
-            android:id="@+id/etGenderSignUp"
+        <RelativeLayout
+            android:id="@+id/rlAuto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cvAddGrocery"
-            android:layout_margin="10dp"
-            android:background="@drawable/shapeemail"
-            android:drawableLeft="@drawable/ic_baseline_blood_colors_24"
-            android:drawablePadding="10dp"
-            android:hint="Gender"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:textColorHighlight="#fff"
-            android:textColorHint="#fff" />
+            android:layout_below="@+id/etLocationSignUp"
+            android:background="@drawable/background_radian">
+            <AutoCompleteTextView
+                android:id="@+id/spItemBloodGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:imeOptions="actionDone"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"
+                android:maxLength="2"
+                android:background="@drawable/shapeemail"
+                android:drawableLeft="@drawable/ic_baseline_blood_colors_24"
+                android:layout_margin="10dp"
+                android:drawablePadding="10dp"
+                android:hint="Blood Group"
+                android:padding="15dp"
+                android:textColor="#fff"
+                android:textColorHighlight="#fff"
+                android:textColorHint="#fff"
+                tools:ignore="RtlSymmetry" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlAuto"
+            android:layout_marginTop="10dp"
+            android:text="GENDER"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textSize="@dimen/screen_margin"
+            tools:ignore="SpUsage" />
+
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_below="@id/tvGender"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="8sp"
+            android:layout_marginRight="50sp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbtn_male"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:buttonTint="@color/white"
+                android:textColor="@color/white"
+                android:checked="false"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/rbtn_female"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:checked="false"
+                android:text="Female" />
+        </RadioGroup>
+
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etGenderSignUp"
+            android:layout_below="@id/radioGroup"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
