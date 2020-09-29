@@ -1,27 +1,28 @@
 package com.example.blooddonation.fragments.home;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.blooddonation.R;
+import com.example.blooddonation.activities.HomeActivity;
 import com.example.blooddonation.adapter.MainTabScreenViewPagerAdapter;
 import com.example.blooddonation.fragments.AllDonorFragment;
 import com.example.blooddonation.fragments.BloodGroupFragment;
 import com.example.blooddonation.fragments.NearByFragment;
-import com.example.blooddonation.R;
 import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment  implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel homeViewModel;
 
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment  implements View.OnClickListener {
     ViewPager viewPager;
     @BindView(R.id.sliding_tabs)
     TabLayout tabLayout;
+    public static SearchView filterSearchView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,11 +39,13 @@ public class HomeFragment extends Fragment  implements View.OnClickListener {
 
         ButterKnife.bind(this, root);
         initListener();
+        filterSearchView = root.findViewById(R.id.searchView);
+        filterSearchView.setQueryHint("Search blood donor");
+
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setOffscreenPageLimit(2);
-
 
 
         return root;
@@ -73,19 +77,22 @@ public class HomeFragment extends Fragment  implements View.OnClickListener {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
+
             }
 
             @Override
             public void onPageSelected(int i) {
 
                 if (i == 0) {
-//                    SharedPreferencesUtils.putStringValueInEditor(MainTabActivity.this, "image_sorting", "views");
-//                    fullViewWallpaperDataModels = ViewsFragment.viewWallpaperDataModels;
+
+                    filterSearchView.setVisibility(View.GONE);
 
                 }
                 if (i == 1) {
-//                    SharedPreferencesUtils.putStringValueInEditor(MainTabActivity.this, "image_sorting", "random");
-//                    fullViewWallpaperDataModels = RandomFragment.topListWallpaperDataModels;
+                    filterSearchView.setVisibility(View.VISIBLE);
+
+                }else {
+                    filterSearchView.setVisibility(View.GONE);
 
                 }
 

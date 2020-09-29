@@ -25,8 +25,6 @@ public class BloodGroupAdapter extends RecyclerView.Adapter<BloodGroupAdapter.Vi
     List<Datum> getBloodGroup;
     Context context;
 
-    ArrayList<String> stringArrayList = new ArrayList<>();
-
     public BloodGroupAdapter(List<Datum> getBloodGroups, Context context) {
         this.getBloodGroup = getBloodGroups;
         this.context = context;

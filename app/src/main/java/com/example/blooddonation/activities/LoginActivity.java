@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (GeneralUtills.isLogin(this)) {
             finishAffinity();
-            startActivity(new Intent(this, HomePageActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         }
 
         iniListener();
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, ForgotActivity.class));
                 break;
             case R.id.tvSkipLogin:
-                startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         }
     }
 
@@ -142,16 +143,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_Location", response.body().getData().getArea());
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_gender", response.body().getData().getGender());
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_profile_image", response.body().getData().getProfileImage());
+                    GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_area", response.body().getData().getArea());
 
 
 
                     GeneralUtills.putBooleanValueInEditor(LoginActivity.this, "isLogin", true);
                     finishAffinity();
-                    startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        Log.d("zama error",String.valueOf( jsonObject.getString("message")));
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -164,6 +169,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFailure(Call<LoginRespones> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
+                Log.d("zama error",String.valueOf(t));
                 dialog.dismiss();
             }
         });

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.blooddonation.activities.EditProfileActivity;
-import com.example.blooddonation.models.GetDonor.DonorDataModel;
 import com.example.blooddonation.R;
+import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchBloodGroupAdapter extends RecyclerView.Adapter<SearchBloodGroupAdapter.ViewHolder> {
 
-    List<DonorDataModel> getBloodGroupModels;
+    List<AllDonorDataModel> getBloodGroupModels;
     Context context;
 
     ArrayList<String> stringArrayList = new ArrayList<>();
 
-    public SearchBloodGroupAdapter(List<DonorDataModel> bloodGroup, Context context) {
+    public SearchBloodGroupAdapter(List<AllDonorDataModel> bloodGroup, Context context) {
         this.getBloodGroupModels = bloodGroup;
         this.context = context;
     }
@@ -45,12 +45,12 @@ public class SearchBloodGroupAdapter extends RecyclerView.Adapter<SearchBloodGro
 
     @Override
     public void onBindViewHolder(@NonNull SearchBloodGroupAdapter.ViewHolder holder, int position) {
-        final DonorDataModel groupMOdel = getBloodGroupModels.get(position);
+        final AllDonorDataModel groupMOdel = getBloodGroupModels.get(position);
 
         Glide.with(context).load(groupMOdel.getProfileImage()).into(holder.circleImageView);
         holder.tvName.setText(groupMOdel.getFullname());
         holder.tvWeight.setText(groupMOdel.getWeight() );
-        holder.tvBloodGroup.setText("Blood Group : "+groupMOdel.getBloodGroup() );
+        holder.tvBloodGroup.setText("Blood Group : "+groupMOdel.getGroupName() );
         holder.tvAge.setText(groupMOdel.getAge() +" Year");
 
         holder.cvCustomAllDonor.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +67,7 @@ public class SearchBloodGroupAdapter extends RecyclerView.Adapter<SearchBloodGro
                 bundle.putString("age", String.valueOf(groupMOdel.getAge()));
                 bundle.putString("gender", String.valueOf(groupMOdel.getGender()));
                 bundle.putString("weight", String.valueOf(groupMOdel.getWeight()));
-                bundle.putString("group_name", String.valueOf(groupMOdel.getBloodGroup()));
+                bundle.putString("group_name", String.valueOf(groupMOdel.getGroupName()));
                 bundle.putString("area", String.valueOf(groupMOdel.getArea()));
                 intent.putExtras(bundle);
                 context.startActivity(intent);

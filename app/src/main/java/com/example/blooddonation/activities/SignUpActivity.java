@@ -115,7 +115,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.btnRegister)
     Button btnRegister;
     Dialog dialog;
-    String strName, strBloodGroup, strEmail, strPassword, strPhoneNumber, strAge, strWeight, strArea, strGender;
+    String strName, strBloodGroup = "null", strEmail, strPassword, strPhoneNumber, strAge, strWeight, strArea, strGender;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -184,7 +184,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             etEmailSignUp.setError(null);
         }
-        if (strBloodGroup.isEmpty()) {
+        if (strBloodGroup.equals("null")) {
             autoCompleteTextView.setError("enter a Blood Group");
             valid = false;
         } else {
@@ -275,11 +275,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         dialog.show();
         Log.d("zma image path", String.valueOf(sourceFile));
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), sourceFile);
-        final MultipartBody.Part profileImage = MultipartBody.Part.createFormData("profile_image", sourceFile.getName(), requestFile);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), sourceFile.getAbsoluteFile());
+        final MultipartBody.Part profileImage = MultipartBody.Part.createFormData("profile_image", sourceFile.getAbsoluteFile().getName(), requestFile);
         RequestBody BodyName = RequestBody.create(MediaType.parse("text/plain"), "upload-test");
-
-
         RequestBody BodyFullName = RequestBody.create(MediaType.parse("multipart/form-data"), strName);
         RequestBody BodyEmail = RequestBody.create(MediaType.parse("multipart/form-data"), strEmail);
         RequestBody BodyPassword = RequestBody.create(MediaType.parse("multipart/form-data"), strPassword);
@@ -295,7 +293,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signupResponseModelCall.enqueue(new Callback<SignUpRespones>() {
             @Override
             public void onResponse(Call<SignUpRespones> call, Response<SignUpRespones> response) {
-                if (response.body().getCode() == 200) {
+                if (response.isSuccessful()) {
                     GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_id", String.valueOf(response.body().getData().getId()));
                     GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_name", response.body().getData().getFullname());
                     GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_email", response.body().getData().getEmail());
@@ -306,10 +304,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_Location", response.body().getData().getArea());
                     GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_gender", response.body().getData().getGender());
                     GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_profile_image", response.body().getData().getProfileImage());
+                    GeneralUtills.putStringValueInEditor(SignUpActivity.this, "user_area", response.body().getData().getArea());
 
                     Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
                     finishAffinity();
-                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                    startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
 
                 } else {
                     try {
@@ -322,20 +321,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     }
                     dialog.dismiss();
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<SignUpRespones> call, Throwable t) {
                 dialog.dismiss();
                 Toast.makeText(SignUpActivity.this, "Successful error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("zama error", String.valueOf(t.getMessage()));
 
             }
         });
-
-
     }
+
+
+
 
     @Override
     public void bloodGroupItem(String id) {
@@ -348,8 +347,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 Manifest.permission.INTERNET,
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.READ_EXTERNAL_STORAGE
         ).withListener(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
@@ -408,7 +406,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
             Uri selectedImageUri = data.getData();
             String imagepath = getPath(selectedImageUri);
-            sourceFile = new File(imagepath);
+            sourceFile=new File(imagepath);
+
             civProfile.setImageURI(selectedImageUri);
 
         } else if (resultCode == RESULT_OK && requestCode == CAMERA_CAPTURE && data != null) {

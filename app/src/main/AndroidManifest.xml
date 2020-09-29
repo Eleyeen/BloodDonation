@@ -6,22 +6,33 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
         android:debuggable="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:ignore="HardcodedDebugMode">
-        <activity android:name=".activities.GetBloodGroupDonorActivity"></activity>
+        tools:ignore="HardcodedDebugMode"
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="n">
+        <activity android:name=".activities.TermAndConditionActivity"></activity>
+        <activity android:name=".activities.AboutActivity" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/network_security_config" />
+
+        <activity android:name=".activities.GetBloodGroupDonorActivity" />
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.ChangePasswordActivity" />
         <activity android:name=".activities.VerifyActivity" />
-        <activity android:name=".activities.HomePageActivity" />
+        <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.ForgotActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.LoginActivity" />

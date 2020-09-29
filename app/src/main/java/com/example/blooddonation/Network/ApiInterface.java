@@ -2,7 +2,7 @@ package com.example.blooddonation.Network;
 
 import com.example.blooddonation.models.Forgot.ForgotRespones;
 import com.example.blooddonation.models.GetBloodGroupModel.GetBloodGroupNameModel;
-import com.example.blooddonation.models.GetDonor.DonorResponse;
+import com.example.blooddonation.models.GetDonor.AllDonorResponse;
 import com.example.blooddonation.models.Login.LoginRespones;
 import com.example.blooddonation.models.NearModel.NearByResponesModel;
 import com.example.blooddonation.models.Verify.VerifyPasswordResponse;
@@ -45,6 +45,20 @@ public interface ApiInterface {
             @Part("profile_image") RequestBody fileName);
 
 
+    @Multipart
+    @POST("signup")
+    Call<SignUpRespones> createUserWithOutImage(
+            @Part("fullname") RequestBody name,
+            @Part("email") RequestBody Email,
+            @Part("password") RequestBody userPassword,
+            @Part("phone") RequestBody userPhone,
+            @Part("age") RequestBody userAge,
+            @Part("weight") RequestBody userWeight,
+            @Part("gender") RequestBody userGender,
+            @Part("area") RequestBody userArea,
+            @Part("group_id") RequestBody userBloodGroup);
+
+
     @FormUrlEncoded
     @POST("reset")
     Call<ForgotRespones> resetPassword(@Field("email") String email);
@@ -64,13 +78,13 @@ public interface ApiInterface {
             @Field("newPassword") String code);
 
     @GET("getalldonors")
-    Call<DonorResponse> getalldonors();
+    Call<AllDonorResponse> getalldonors();
 
     @GET("getgroups")
     Call<GetBloodGroupNameModel> getgroups();
 
     @GET("bloodgroups?")
-    Call<DonorResponse> getalldonorLogin(
+    Call<AllDonorResponse> getalldonorLogin(
             @Query("user_id") String userId);
 
     @GET("getNearBy?")
@@ -79,7 +93,7 @@ public interface ApiInterface {
     );
 
     @GET("searchdonors?")
-    Call<DonorResponse> GetSearchBloodGroup(
+    Call<AllDonorResponse> GetSearchBloodGroup(
             @Query("group_id") String userGroupId
     );
 

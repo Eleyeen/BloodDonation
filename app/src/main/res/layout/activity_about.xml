@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AboutActivity">
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="About Us"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical" />
+
+
+    <TextView
+        android:id="@+id/tvWhoWeAre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingLeft="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Who we Are"/>
+
+
+    <TextView
+        android:id="@+id/tvWhoWeAreDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvWhoWeAre"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="@string/simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood"/>
+
+
+    <TextView
+        android:id="@+id/tvvWhatWeDo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvWhoWeAreDetail"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingLeft="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Who we Are"/>
+
+
+    <TextView
+        android:id="@+id/tvWhatWeDoDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvvWhatWeDo"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="@string/simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

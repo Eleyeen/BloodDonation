@@ -2,11 +2,15 @@ package com.example.blooddonation;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.blooddonation.fragments.SplashFragment;
+import com.example.blooddonation.activities.HomeActivity;
+import com.example.blooddonation.activities.LoginActivity;
+import com.example.blooddonation.utils.GeneralUtills;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,47 +18,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SplashFragment()).commit();
 
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        SplashFragment.splashBoolean = false;
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SplashFragment.splashBoolean = true;
-
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this, R.style.CustomDialogTheme);
-        dialog.setTitle("Spinelli");
-        dialog.setMessage("Are you sure you want to Exit?");
-
-        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void run() {
+                if (GeneralUtills.isLogin(MainActivity.this)) {
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                } else {
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
+                }
                 finish();
-
             }
-        });
-        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
+        }, 1000);
 
     }
+
+
 }

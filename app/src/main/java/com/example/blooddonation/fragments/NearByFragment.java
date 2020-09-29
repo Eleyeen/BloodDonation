@@ -26,6 +26,7 @@ import com.example.blooddonation.utils.AlertUtils;
 import com.example.blooddonation.utils.GeneralUtills;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +56,7 @@ public class NearByFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
         ButterKnife.bind(this,view);
         dialog = AlertUtils.createProgressDialog(getActivity());
-        strCityName = GeneralUtills.getSharedPreferences(getActivity()).getString("area", "");
+        strCityName = GeneralUtills.getSharedPreferences(getActivity()).getString("user_area", "");
 
         APiNearBy(strCityName);
         recylcerView();
@@ -65,6 +66,7 @@ public class NearByFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiNearBy(String strCityName) {
         dialog.show();
+        allDonor.clear();
         Call<NearByResponesModel> getUserResponseModelCall = BaseNetworking.apiServices().GetNearBy(strCityName);
         getUserResponseModelCall.enqueue(new Callback<NearByResponesModel>() {
             @Override
@@ -73,6 +75,7 @@ public class NearByFragment extends Fragment {
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
                     allDonor.addAll(response.body().getData());
+                    Collections.reverse(allDonor);
                     nearByAdapter.notifyDataSetChanged();
                     dialog.dismiss();
                 }else {
@@ -103,6 +106,20 @@ public class NearByFragment extends Fragment {
 
         nearByAdapter = new NearByAdapter(allDonor, getActivity());
         rvNearBy.setAdapter(nearByAdapter);
+
+//        HomeFragment.filterSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String queryString) {
+//                nearByAdapter.getFilter().filter(queryString);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String queryString) {
+//                nearByAdapter.getFilter().filter(queryString);
+//                return false;
+//            }
+//        });
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.blooddonation.activities;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -16,10 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonation.adapter.AllDonorAdapter;
-import com.example.blooddonation.models.GetDonor.DonorDataModel;
-import com.example.blooddonation.models.GetDonor.DonorResponse;
 import com.example.blooddonation.Network.BaseNetworking;
 import com.example.blooddonation.R;
+import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
+import com.example.blooddonation.models.GetDonor.AllDonorResponse;
+import com.example.blooddonation.utils.AlertUtils;
 
 import java.util.ArrayList;
 
@@ -34,7 +36,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
 
     AllDonorAdapter allDonorAdapter;
     LinearLayoutManager linearLayoutManager;
-    public static ArrayList<DonorDataModel> allDonor = new ArrayList<>();
+    public static ArrayList<AllDonorDataModel> allDonor = new ArrayList<>();
     private Parcelable state;
 
     @BindView(R.id.rvAllDonor)
@@ -50,6 +52,8 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
     @BindView(R.id.tvNoDonorFound)
     TextView tvNoDonorFound;
 
+    Dialog dialog;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -57,6 +61,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_blood_group_donor);
         ButterKnife.bind(this);
+        dialog= AlertUtils.createProgressDialog(this);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -71,26 +76,29 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiGetAllDonorLogin(String strUserId) {
         allDonor.clear();
-        Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strUserId);
-        getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
+        dialog.show();
+        Call<AllDonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strUserId);
+        getUserResponseModelCall.enqueue(new Callback<AllDonorResponse>() {
             @Override
-            public void onResponse(Call<DonorResponse> call, Response<DonorResponse> response) {
+            public void onResponse(Call<AllDonorResponse> call, Response<AllDonorResponse> response) {
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
                     allDonor.addAll(response.body().getData());
                     allDonorAdapter.notifyDataSetChanged();
-
+                    dialog.dismiss();
                     if (allDonor.size() == 0) {
                         tvNoDonorFound.setVisibility(View.VISIBLE);
                     } else {
                         tvNoDonorFound.setVisibility(View.GONE);
                     }
+                }else {
+                    dialog.dismiss();
                 }
             }
 
             @Override
-            public void onFailure(Call<DonorResponse> call, Throwable t) {
-
+            public void onFailure(Call<AllDonorResponse> call, Throwable t) {
+                dialog.dismiss();
             }
         });
 

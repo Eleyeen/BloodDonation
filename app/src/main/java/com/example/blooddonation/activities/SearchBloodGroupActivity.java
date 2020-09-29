@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonation.adapter.SearchBloodGroupAdapter;
-import com.example.blooddonation.models.GetDonor.DonorDataModel;
-import com.example.blooddonation.models.GetDonor.DonorResponse;
 import com.example.blooddonation.Network.BaseNetworking;
 import com.example.blooddonation.R;
+import com.example.blooddonation.models.GetDonor.AllDonorResponse;
+import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchBloodGroupActivity extends AppCompatActivity implements View.OnClickListener {
-    public static ArrayList<DonorDataModel> bloodGroup = new ArrayList<>();
+    public static ArrayList<AllDonorDataModel> bloodGroup = new ArrayList<>();
     private Parcelable state;
     SearchBloodGroupAdapter bloodGroupAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -55,10 +55,10 @@ public class SearchBloodGroupActivity extends AppCompatActivity implements View.
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiSearchBloodGroup(String strBlodGroupId) {
-        Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strBlodGroupId);
-        getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
+        Call<AllDonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strBlodGroupId);
+        getUserResponseModelCall.enqueue(new Callback<AllDonorResponse>() {
             @Override
-            public void onResponse(Call<DonorResponse> call, Response<DonorResponse> response) {
+            public void onResponse(Call<AllDonorResponse> call, Response<AllDonorResponse> response) {
 
                 if (response.isSuccessful()) {
                     bloodGroup.addAll(response.body().getData());
@@ -69,7 +69,7 @@ public class SearchBloodGroupActivity extends AppCompatActivity implements View.
             }
 
             @Override
-            public void onFailure(Call<DonorResponse> call, Throwable t) {
+            public void onFailure(Call<AllDonorResponse> call, Throwable t) {
 
             }
         });

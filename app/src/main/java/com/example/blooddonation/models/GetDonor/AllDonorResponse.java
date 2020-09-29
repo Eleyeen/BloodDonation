@@ -1,15 +1,16 @@
 
 package com.example.blooddonation.models.GetDonor;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class DonorResponse {
+import java.util.List;
+
+public class AllDonorResponse {
 
     @SerializedName("code")
     private Long mCode;
     @SerializedName("data")
-    private List<DonorDataModel> mData;
+    private List<AllDonorDataModel> mData;
     @SerializedName("message")
     private String mMessage;
     @SerializedName("status")
@@ -23,11 +24,11 @@ public class DonorResponse {
         mCode = code;
     }
 
-    public List<DonorDataModel> getData() {
+    public List<AllDonorDataModel> getData() {
         return mData;
     }
 
-    public void setData(List<DonorDataModel> data) {
+    public void setData(List<AllDonorDataModel> data) {
         mData = data;
     }
 

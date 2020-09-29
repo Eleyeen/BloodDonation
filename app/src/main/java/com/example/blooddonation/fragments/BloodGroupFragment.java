@@ -23,6 +23,7 @@ import com.example.blooddonation.R;
 import com.example.blooddonation.utils.AlertUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.blooddonation.activities.EditProfileActivity;
-import com.example.blooddonation.models.GetDonor.DonorDataModel;
 import com.example.blooddonation.R;
+import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +27,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHolder> {
 
-    List<DonorDataModel> getAllDonorModels;
+    List<AllDonorDataModel> getAllDonorModels;
+    List<AllDonorDataModel> filterAllDonorModels;
     Context context;
 
     ArrayList<String> stringArrayList = new ArrayList<>();
 
-    public AllDonorAdapter(List<DonorDataModel> allDonorModel, Context context) {
+    public AllDonorAdapter(List<AllDonorDataModel> allDonorModel, Context context) {
         this.getAllDonorModels = allDonorModel;
+        this.filterAllDonorModels=allDonorModel;
         this.context = context;
     }
 
@@ -47,12 +50,12 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AllDonorAdapter.ViewHolder holder, int position) {
-        final DonorDataModel getAllDonorModel = getAllDonorModels.get(position);
+        final AllDonorDataModel getAllDonorModel = getAllDonorModels.get(position);
 
-        Glide.with(context).load(getAllDonorModel.getProfileImage()).into(holder.circleImageView);
+        Glide.with(context).load(getAllDonorModel.getProfileImage()).placeholder(R.drawable.profile_image).into(holder.circleImageView);
         holder.tvName.setText(getAllDonorModel.getFullname());
         holder.tvWeight.setText(getAllDonorModel.getWeight());
-        holder.tvBloodGroup.setText("Blood Group : " + getAllDonorModel.getBloodGroup());
+        holder.tvBloodGroup.setText("Blood Group : " + getAllDonorModel.getGroupName() );
         holder.tvAge.setText(getAllDonorModel.getAge() + " Year");
 
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +81,7 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
                 bundle.putString("age", String.valueOf(getAllDonorModel.getAge()));
                 bundle.putString("gender", String.valueOf(getAllDonorModel.getGender()));
                 bundle.putString("weight", String.valueOf(getAllDonorModel.getWeight()));
-                bundle.putString("group_name", String.valueOf(getAllDonorModel.getBloodGroup()));
+                bundle.putString("group_name", String.valueOf(getAllDonorModel.getGroupName()));
                 bundle.putString("area", String.valueOf(getAllDonorModel.getArea()));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
@@ -112,4 +115,34 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
 
         }
     }
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charSequenceString = constraint.toString();
+                if (charSequenceString.isEmpty()) {
+                    getAllDonorModels = filterAllDonorModels;
+                } else {
+                    List<AllDonorDataModel> filteredList = new ArrayList<>();
+                    for (AllDonorDataModel name : filterAllDonorModels) {
+                        if (name.getFullname().toLowerCase().contains(charSequenceString.toLowerCase()) || name.getFullname().contains(charSequenceString)) {
+                            filteredList.add(name);
+                        }
+                        getAllDonorModels = filteredList;
+                    }
+
+                }
+                FilterResults results = new FilterResults();
+                results.values = getAllDonorModels;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                getAllDonorModels = (List<AllDonorDataModel>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 }

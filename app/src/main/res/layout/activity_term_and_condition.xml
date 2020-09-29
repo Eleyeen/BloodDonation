@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TermAndConditionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorRed"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Terms &amp; Conditions"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical" />
+
+
+    <TextView
+        android:id="@+id/tvWhoWeAre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingLeft="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Introduction"/>
+
+
+    <TextView
+        android:id="@+id/tvWhoWeAreDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvWhoWeAre"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="Platform Standard Terms and Conditions contained herein on this page, shall govern your use of this platform, including all pages within this platform. These Terms apply in full force and effect to your use of this Platform and by using this Platform, you expressly accept all terms and conditions contained herein in full. You must not use this Platform, if you have any objection to any of these Platform Standard Terms and Conditions. This Platform is for use by any person who is at least 18 years of age, and you must not register yourself as blood donor on this Platform if you are legally not allowed to donate blood in your respective country."/>
+
+    <TextView
+        android:id="@+id/tvPropertyRight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvWhoWeAreDetail"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingLeft="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Intellectual Property Rights"/>
+
+
+    <TextView
+        android:id="@+id/tvPropertyDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvPropertyRight"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="Other than content you own, which you may have opted to include on this Platform, under these Terms, Foundation and/or its licensors own all rights to the intellectual property and material contained in this Platform, and all such rights are reserved. You are granted a limited license only, subject to the restrictions provided in these Terms, for purposes of viewing the material contained on this Platform."/>
+
+
+
+    <TextView
+        android:id="@+id/tvRestrictions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvPropertyDetail"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingLeft="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Restrictions"/>
+
+
+    <TextView
+        android:id="@+id/tvRestrictionsDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvRestrictions"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="You are expressly and emphatically restricted from all of the following:
+        \n
+    • publishing any Platform material in any media;
+\n
+    • selling, sub-licensing and/or otherwise commercializing any Platform material;
+\n
+    • Publicly performing and/or showing any Platform material; 4. using this Platform in any way that is, or may be, damaging to this Platform;
+\n
+    • using this Platform in any way that impacts user access to this Platform;
+\n
+    • using this Platform contrary to applicable laws and regulations, or in a way that causes, or may cause, harm to the Platform, or to any person or business entity;
+\n
+    • engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this Platform, or while using this Platform;
+\n
+    • using this Platform to engage in any advertising or marketing;
+\n
+Certain areas of this Platform are restricted from access by you and Foundation may further restrict access by you to any areas of this Platform, at any time, in its sole and absolute discretion. Any user ID and password you may have for this Platform are confidential and you must maintain confidentiality of such information."/>
+
+        <TextView
+            android:id="@+id/tvYourContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvRestrictionsDetail"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:paddingLeft="@dimen/padding_left_right"
+            android:paddingRight="@dimen/padding_left_right"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Your Content"/>
+
+
+        <TextView
+            android:id="@+id/tvYourContentDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvYourContent"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:layout_margin="@dimen/padding_left_right"
+            android:textSize="14sp"
+            android:text="In these Platform Standard Terms and Conditions, Your Content shall mean any audio, video, text, images or other material you choose to display on this Platform. With respect to Your Content, by displaying it, you grant Foundation a non-exclusive, worldwide, irrevocable, royalty-free, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media. Your Content must be your own and must not be infringing on any third party's rights. Foundation reserves the right to remove any of Your Content from this Platform at any time, and for any reason, without notice."/>
+
+
+        <TextView
+            android:id="@+id/tvNoWarranties"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvRestrictionsDetail"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:paddingLeft="@dimen/padding_left_right"
+            android:paddingRight="@dimen/padding_left_right"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="No Warranties"/>
+
+
+        <TextView
+            android:id="@+id/tvNoWarrantiesDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvNoWarranties"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:layout_margin="@dimen/padding_left_right"
+            android:textSize="14sp"
+            android:text="This Platform is provided as is,with all faults, and Foundation makes no express or implied representations or warranties, of any kind related to this Platform or the materials contained on this Platform. Additionally, nothing contained on this Platform shall be construed as providing consult or advice to you."/>
+
+
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvRestrictionsDetail"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:paddingLeft="@dimen/padding_left_right"
+            android:paddingRight="@dimen/padding_left_right"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Variation of Terms"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvNoWarranties"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:layout_margin="@dimen/padding_left_right"
+            android:textSize="14sp"
+            android:text="Foundation is permitted to revise these Terms at any time as it sees fit, and by using this Platform you are expected to review such Terms on a regular basis to ensure you understand all terms and conditions governing use of this Platform."/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvRestrictionsDetail"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:paddingLeft="@dimen/padding_left_right"
+            android:paddingRight="@dimen/padding_left_right"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Governing Law &amp; Jurisdiction"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvNoWarranties"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:layout_margin="@dimen/padding_left_right"
+            android:textSize="14sp"
+            android:text="These Terms will be governed by and construed in accordance with the laws of the Islamic republic of Pakistan, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Islamabad, Pakistan for the resolution of any disputes."/>
+
+
+    </LinearLayout>
+</ScrollView>

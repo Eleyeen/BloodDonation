@@ -32,7 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
 
     @BindView(R.id.navName)
@@ -40,6 +40,13 @@ public class HomePageActivity extends AppCompatActivity {
     @BindView(R.id.tvNavEmail)
     TextView tvNavEmail;
     Dialog dialog;
+
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +59,14 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
 
 
+
         View headerView = navigationView.getHeaderView(0);
         ButterKnife.bind(this, headerView);
+
         setNavText();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_logout, R.id.nav_teamSideBar)
+                R.id.nav_home, R.id.nav_logout, R.id.navTeramAndCondition)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -69,6 +78,9 @@ public class HomePageActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if (destination.getId() == R.id.nav_logout) {
                     Logout();
+                } else if (destination.getId() == R.id.navTeramAndCondition) {
+                    startActivity(new Intent(HomeActivity.this, TermAndConditionActivity.class));
+                    Toast.makeText(HomeActivity.this, "termAndCondition", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -80,18 +92,7 @@ public class HomePageActivity extends AppCompatActivity {
         tvNavEmail.setText(GeneralUtills.getUserEmail(this));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-//        if (GeneralUtills.isLogin(this)) {
-//            getMenuInflater().inflate(R.menu.menu_login, menu);
-//
-//        } else {
-//            getMenuInflater().inflate(R.menu.menu, menu);
-//        }
 
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -104,6 +105,11 @@ public class HomePageActivity extends AppCompatActivity {
             case R.id.action_share:
                 shareApp();
                 break;
+
+            case R.id.action_aboutUs:
+
+                startActivity(new Intent(HomeActivity.this, AboutActivity.class));
+
         }
         return super.onOptionsItemSelected(item);
 
@@ -129,7 +135,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         finishAffinity();
 
-        Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
         startActivity(intent);
 
     }

@@ -17,8 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
-import com.example.blooddonation.models.GetDonor.DonorDataModel;
 import com.example.blooddonation.R;
+import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
 import com.example.blooddonation.utils.GeneralUtills;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     Button btnCall;
 
     String strUserId;
-    ArrayList<DonorDataModel> itemModels = new ArrayList<>();
+    ArrayList<AllDonorDataModel> itemModels = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -79,7 +79,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
         if (bundle != null) {
 
-            Glide.with(EditProfileActivity.this).load(bundle.getString("profile_image")).into(civProfilePic);
+            Glide.with(EditProfileActivity.this).load(bundle.getString("profile_image")).placeholder(R.drawable.profile_image).into(civProfilePic);
 
             tvEmailProfile.setText(bundle.getString("email"));
             tvAgeProfile.setText(bundle.getString("age"));
