@@ -1,9 +1,9 @@
 
-package com.example.blooddonation.models.GetBloodGroupModel;
+package com.example.blooddonation.models.bloodGroupNameModel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+public class GetBloodGroupDataModel {
 
     @SerializedName("id")
     private String mId;

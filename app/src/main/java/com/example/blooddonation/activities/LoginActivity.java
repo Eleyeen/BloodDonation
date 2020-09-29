@@ -16,9 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.blooddonation.models.Login.LoginRespones;
-import com.example.blooddonation.Network.APIClient;
-import com.example.blooddonation.Network.ApiInterface;
+import com.example.blooddonation.models.loginModel.LoginRespones;
+import com.example.blooddonation.network.APIClient;
+import com.example.blooddonation.network.ApiInterface;
 import com.example.blooddonation.R;
 import com.example.blooddonation.utils.AlertUtils;
 import com.example.blooddonation.utils.GeneralUtills;

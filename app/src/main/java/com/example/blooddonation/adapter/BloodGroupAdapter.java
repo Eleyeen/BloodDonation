@@ -13,19 +13,18 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonation.activities.GetBloodGroupDonorActivity;
-import com.example.blooddonation.models.GetBloodGroupModel.Datum;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupDataModel;
 import com.example.blooddonation.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BloodGroupAdapter extends RecyclerView.Adapter<BloodGroupAdapter.ViewHolder> {
 
 
-    List<Datum> getBloodGroup;
+    List<GetBloodGroupDataModel> getBloodGroup;
     Context context;
 
-    public BloodGroupAdapter(List<Datum> getBloodGroups, Context context) {
+    public BloodGroupAdapter(List<GetBloodGroupDataModel> getBloodGroups, Context context) {
         this.getBloodGroup = getBloodGroups;
         this.context = context;
     }
@@ -40,7 +39,7 @@ public class BloodGroupAdapter extends RecyclerView.Adapter<BloodGroupAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull BloodGroupAdapter.ViewHolder holder, int position) {
-        final Datum getBloodGroupModel = getBloodGroup.get(position);
+        final GetBloodGroupDataModel getBloodGroupModel = getBloodGroup.get(position);
         holder.tvBloodGroup.setText(getBloodGroupModel.getName());
         holder.cvCustomBloodGroup.setOnClickListener(new View.OnClickListener() {
             @Override

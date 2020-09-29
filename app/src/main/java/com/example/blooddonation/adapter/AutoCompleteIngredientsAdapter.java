@@ -12,19 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.blooddonation.models.GetBloodGroupModel.Datum;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupDataModel;
 import com.example.blooddonation.R;
 import com.example.blooddonation.interfaces.BloodGroupItemId;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutoCompleteIngredientsAdapter extends ArrayAdapter<Datum> {
-    private List<Datum> ingredientsListFull;
+public class AutoCompleteIngredientsAdapter extends ArrayAdapter<GetBloodGroupDataModel> {
+    private List<GetBloodGroupDataModel> ingredientsListFull;
     BloodGroupItemId itemID;
     Context context;
 
-    public AutoCompleteIngredientsAdapter(@NonNull Context context, @NonNull List<Datum> ingridientsList, BloodGroupItemId groceryItemID) {
+    public AutoCompleteIngredientsAdapter(@NonNull Context context, @NonNull List<GetBloodGroupDataModel> ingridientsList, BloodGroupItemId groceryItemID) {
         super(context, 0, ingridientsList);
         ingredientsListFull = new ArrayList<>(ingridientsList);
         this.context = context;
@@ -48,7 +48,7 @@ public class AutoCompleteIngredientsAdapter extends ArrayAdapter<Datum> {
         TextView textViewName = convertView.findViewById(R.id.tv_autocoplete_item_name);
         LinearLayout linearrow = convertView.findViewById(R.id.linearrow);
 
-        Datum countryItem = getItem(position);
+        GetBloodGroupDataModel countryItem = getItem(position);
         if (countryItem != null) {
 
 
@@ -74,12 +74,12 @@ public class AutoCompleteIngredientsAdapter extends ArrayAdapter<Datum> {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            List<Datum> suggestions = new ArrayList<>();
+            List<GetBloodGroupDataModel> suggestions = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
                 suggestions.addAll(ingredientsListFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Datum item : ingredientsListFull) {
+                for (GetBloodGroupDataModel item : ingredientsListFull) {
                     if (item.getName().toLowerCase().contains(filterPattern)) {
 
                     }
@@ -101,7 +101,7 @@ public class AutoCompleteIngredientsAdapter extends ArrayAdapter<Datum> {
 
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((Datum) resultValue).getName();
+            return ((GetBloodGroupDataModel) resultValue).getName();
 
 
         }

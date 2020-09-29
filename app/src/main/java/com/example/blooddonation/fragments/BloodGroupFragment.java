@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonation.adapter.BloodGroupAdapter;
-import com.example.blooddonation.models.GetBloodGroupModel.Datum;
-import com.example.blooddonation.models.GetBloodGroupModel.GetBloodGroupNameModel;
-import com.example.blooddonation.Network.BaseNetworking;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupDataModel;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupResponse;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
 import com.example.blooddonation.utils.AlertUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,7 +37,7 @@ public class BloodGroupFragment extends Fragment {
     private View view;
     LinearLayoutManager linearLayoutManager;
     BloodGroupAdapter adapter;
-    private List<Datum> itemLists;
+    private List<GetBloodGroupDataModel> itemLists;
     Dialog dialog;
 
     @BindView(R.id.tvNoDonorFound)
@@ -61,11 +60,11 @@ public class BloodGroupFragment extends Fragment {
     private void APiGetBloodGroup() {
         dialog.show();
 
-        Call<GetBloodGroupNameModel> getUserResponseModelCall = BaseNetworking.apiServices().getgroups();
+        Call<GetBloodGroupResponse> getUserResponseModelCall = BaseNetworking.apiServices().getgroups();
 
-        getUserResponseModelCall.enqueue(new Callback<GetBloodGroupNameModel>() {
+        getUserResponseModelCall.enqueue(new Callback<GetBloodGroupResponse>() {
             @Override
-            public void onResponse(Call<GetBloodGroupNameModel> call, Response<GetBloodGroupNameModel> response) {
+            public void onResponse(Call<GetBloodGroupResponse> call, Response<GetBloodGroupResponse> response) {
 
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
@@ -84,7 +83,7 @@ public class BloodGroupFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<GetBloodGroupNameModel> call, Throwable t) {
+            public void onFailure(Call<GetBloodGroupResponse> call, Throwable t) {
                 Log.d("zma error", String.valueOf(t));
                 dialog.dismiss();
 

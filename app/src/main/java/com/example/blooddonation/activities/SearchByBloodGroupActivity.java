@@ -2,7 +2,6 @@ package com.example.blooddonation.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,11 +12,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blooddonation.adapter.SearchBloodGroupAdapter;
-import com.example.blooddonation.Network.BaseNetworking;
+import com.example.blooddonation.adapter.DonorAdapter;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
-import com.example.blooddonation.models.GetDonor.AllDonorResponse;
-import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
+import com.example.blooddonation.models.donorModel.DonorResponse;
+import com.example.blooddonation.models.donorModel.DonorDataModel;
 
 import java.util.ArrayList;
 
@@ -27,10 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchBloodGroupActivity extends AppCompatActivity implements View.OnClickListener {
-    public static ArrayList<AllDonorDataModel> bloodGroup = new ArrayList<>();
-    private Parcelable state;
-    SearchBloodGroupAdapter bloodGroupAdapter;
+public class SearchByBloodGroupActivity extends AppCompatActivity implements View.OnClickListener {
+    public static ArrayList<DonorDataModel> bloodGroup = new ArrayList<>();
+    DonorAdapter bloodGroupAdapter;
     LinearLayoutManager linearLayoutManager;
     @BindView(R.id.rvsearchBlodGroup)
     RecyclerView rvsearchBlodGroup;
@@ -55,10 +53,10 @@ public class SearchBloodGroupActivity extends AppCompatActivity implements View.
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiSearchBloodGroup(String strBlodGroupId) {
-        Call<AllDonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strBlodGroupId);
-        getUserResponseModelCall.enqueue(new Callback<AllDonorResponse>() {
+        Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strBlodGroupId);
+        getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
             @Override
-            public void onResponse(Call<AllDonorResponse> call, Response<AllDonorResponse> response) {
+            public void onResponse(Call<DonorResponse> call, Response<DonorResponse> response) {
 
                 if (response.isSuccessful()) {
                     bloodGroup.addAll(response.body().getData());
@@ -69,7 +67,7 @@ public class SearchBloodGroupActivity extends AppCompatActivity implements View.
             }
 
             @Override
-            public void onFailure(Call<AllDonorResponse> call, Throwable t) {
+            public void onFailure(Call<DonorResponse> call, Throwable t) {
 
             }
         });
@@ -82,7 +80,7 @@ public class SearchBloodGroupActivity extends AppCompatActivity implements View.
         rvsearchBlodGroup.setItemAnimator(new DefaultItemAnimator());
         rvsearchBlodGroup.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        bloodGroupAdapter = new SearchBloodGroupAdapter(bloodGroup, this);
+        bloodGroupAdapter = new DonorAdapter(bloodGroup, this);
         rvsearchBlodGroup.setAdapter(bloodGroupAdapter);
 
     }
@@ -90,21 +88,6 @@ public class SearchBloodGroupActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View view) {
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onResume() {
-        super.onResume();
-        bloodGroup.clear();
-        linearLayoutManager.onRestoreInstanceState(state);
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        state = linearLayoutManager.onSaveInstanceState();
     }
 
 }

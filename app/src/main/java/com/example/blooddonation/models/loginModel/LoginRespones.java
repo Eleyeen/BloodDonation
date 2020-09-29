@@ -1,5 +1,5 @@
 
-package com.example.blooddonation.models.Login;
+package com.example.blooddonation.models.loginModel;
 
 import com.google.gson.annotations.SerializedName;
 

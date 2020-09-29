@@ -1,26 +1,34 @@
 
-package com.example.blooddonation.models.searchBloodGroupModel;
+package com.example.blooddonation.models.loginModel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BloodGroupSearchDataModel {
+public class Data {
 
     @SerializedName("age")
     private String mAge;
     @SerializedName("area")
     private String mArea;
+    @SerializedName("blood_group")
+    private String mBloodGroup;
+    @SerializedName("code")
+    private String mCode;
+    @SerializedName("created_at")
+    private String mCreatedAt;
     @SerializedName("email")
     private String mEmail;
     @SerializedName("fullname")
     private String mFullname;
     @SerializedName("gender")
     private String mGender;
-    @SerializedName("group_name")
-    private String mGroupName;
+    @SerializedName("id")
+    private Long mId;
     @SerializedName("phone")
     private String mPhone;
     @SerializedName("profile_image")
     private String mProfileImage;
+    @SerializedName("updated_at")
+    private String mUpdatedAt;
     @SerializedName("weight")
     private String mWeight;
 
@@ -38,6 +46,30 @@ public class BloodGroupSearchDataModel {
 
     public void setArea(String area) {
         mArea = area;
+    }
+
+    public String getBloodGroup() {
+        return mBloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        mBloodGroup = bloodGroup;
+    }
+
+    public String getCode() {
+        return mCode;
+    }
+
+    public void setCode(String code) {
+        mCode = code;
+    }
+
+    public String getCreatedAt() {
+        return mCreatedAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        mCreatedAt = createdAt;
     }
 
     public String getEmail() {
@@ -64,12 +96,12 @@ public class BloodGroupSearchDataModel {
         mGender = gender;
     }
 
-    public String getGroupName() {
-        return mGroupName;
+    public Long getId() {
+        return mId;
     }
 
-    public void setGroupName(String groupName) {
-        mGroupName = groupName;
+    public void setId(Long id) {
+        mId = id;
     }
 
     public String getPhone() {
@@ -86,6 +118,14 @@ public class BloodGroupSearchDataModel {
 
     public void setProfileImage(String profileImage) {
         mProfileImage = profileImage;
+    }
+
+    public String getUpdatedAt() {
+        return mUpdatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        mUpdatedAt = updatedAt;
     }
 
     public String getWeight() {

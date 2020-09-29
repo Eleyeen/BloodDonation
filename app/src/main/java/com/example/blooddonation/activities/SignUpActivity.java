@@ -28,14 +28,14 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.blooddonation.Network.APIClient;
-import com.example.blooddonation.Network.ApiInterface;
-import com.example.blooddonation.Network.BaseNetworking;
+import com.example.blooddonation.network.APIClient;
+import com.example.blooddonation.network.ApiInterface;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
 import com.example.blooddonation.adapter.AutoCompleteIngredientsAdapter;
 import com.example.blooddonation.interfaces.BloodGroupItemId;
-import com.example.blooddonation.models.GetBloodGroupModel.Datum;
-import com.example.blooddonation.models.GetBloodGroupModel.GetBloodGroupNameModel;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupDataModel;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupResponse;
 import com.example.blooddonation.models.signUpModel.SignUpRespones;
 import com.example.blooddonation.utils.AlertUtils;
 import com.example.blooddonation.utils.GeneralUtills;
@@ -78,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     File sourceFile;
     public static String fileName;
     public static final int REQUEST_IMAGE_CAPTURE = 0;
-    ArrayList<Datum> listModels = new ArrayList<>();
+    ArrayList<GetBloodGroupDataModel> listModels = new ArrayList<>();
 
     AutoCompleteIngredientsAdapter adapter;
     private String strItemBloodGroup = "";
@@ -250,11 +250,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void getBloodGroupName() {
         ApiInterface services = APIClient.getApiClient().create(ApiInterface.class);
 
-        Call<GetBloodGroupNameModel> call = services.getgroups();
+        Call<GetBloodGroupResponse> call = services.getgroups();
 
-        call.enqueue(new Callback<GetBloodGroupNameModel>() {
+        call.enqueue(new Callback<GetBloodGroupResponse>() {
             @Override
-            public void onResponse(Call<GetBloodGroupNameModel> call, Response<GetBloodGroupNameModel> response) {
+            public void onResponse(Call<GetBloodGroupResponse> call, Response<GetBloodGroupResponse> response) {
                 if (response.isSuccessful()) {
                     listModels.addAll(response.body().getData());
                     adapter = new AutoCompleteIngredientsAdapter(SignUpActivity.this, listModels, SignUpActivity.this);
@@ -264,7 +264,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(Call<GetBloodGroupNameModel> call, Throwable t) {
+            public void onFailure(Call<GetBloodGroupResponse> call, Throwable t) {
             }
         });
 

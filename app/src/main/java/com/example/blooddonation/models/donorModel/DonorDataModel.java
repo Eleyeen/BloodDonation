@@ -1,10 +1,10 @@
 
-package com.example.blooddonation.models.GetDonor;
+package com.example.blooddonation.models.donorModel;
 
 
 import com.google.gson.annotations.SerializedName;
 
-public class AllDonorDataModel {
+public class DonorDataModel {
 
     @SerializedName("age")
     private String mAge;

@@ -1,15 +1,15 @@
 
-package com.example.blooddonation.models.GetBloodGroupModel;
+package com.example.blooddonation.models.bloodGroupNameModel;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class GetBloodGroupNameModel {
+public class GetBloodGroupResponse {
 
     @SerializedName("code")
     private Long mCode;
     @SerializedName("data")
-    private List<Datum> mData;
+    private List<GetBloodGroupDataModel> mData;
     @SerializedName("message")
     private String mMessage;
     @SerializedName("status")
@@ -23,11 +23,11 @@ public class GetBloodGroupNameModel {
         mCode = code;
     }
 
-    public List<Datum> getData() {
+    public List<GetBloodGroupDataModel> getData() {
         return mData;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<GetBloodGroupDataModel> data) {
         mData = data;
     }
 

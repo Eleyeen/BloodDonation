@@ -3,7 +3,6 @@ package com.example.blooddonation.activities;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,11 +15,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blooddonation.adapter.AllDonorAdapter;
-import com.example.blooddonation.Network.BaseNetworking;
+import com.example.blooddonation.adapter.DonorAdapter;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
-import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
-import com.example.blooddonation.models.GetDonor.AllDonorResponse;
+import com.example.blooddonation.models.donorModel.DonorDataModel;
+import com.example.blooddonation.models.donorModel.DonorResponse;
 import com.example.blooddonation.utils.AlertUtils;
 
 import java.util.ArrayList;
@@ -34,21 +33,17 @@ import retrofit2.Response;
 
 public class GetBloodGroupDonorActivity extends AppCompatActivity implements View.OnClickListener {
 
-    AllDonorAdapter allDonorAdapter;
+    DonorAdapter allDonorAdapter;
     LinearLayoutManager linearLayoutManager;
-    public static ArrayList<AllDonorDataModel> allDonor = new ArrayList<>();
-    private Parcelable state;
+    public static ArrayList<DonorDataModel> allDonor = new ArrayList<>();
+
 
     @BindView(R.id.rvAllDonor)
     RecyclerView rvAllDonor;
-    String strUseId;
-
     @BindView(R.id.tvBloodGroup)
     TextView tvBloodGroup;
-
     @BindView(R.id.ivBack)
     ImageView ivBack;
-
     @BindView(R.id.tvNoDonorFound)
     TextView tvNoDonorFound;
 
@@ -68,6 +63,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
         if (bundle != null) {
             APiGetAllDonorLogin(bundle.getString("bloodgroup_id"));
             tvBloodGroup.setText(bundle.getString("bloodgroup_name"));
+
         }
         recylcerView();
 
@@ -76,11 +72,12 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiGetAllDonorLogin(String strUserId) {
         allDonor.clear();
+        Log.d("zma id",strUserId);
         dialog.show();
-        Call<AllDonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strUserId);
-        getUserResponseModelCall.enqueue(new Callback<AllDonorResponse>() {
+        Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strUserId);
+        getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
             @Override
-            public void onResponse(Call<AllDonorResponse> call, Response<AllDonorResponse> response) {
+            public void onResponse(Call<DonorResponse> call, Response<DonorResponse> response) {
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
                     allDonor.addAll(response.body().getData());
@@ -97,7 +94,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
             }
 
             @Override
-            public void onFailure(Call<AllDonorResponse> call, Throwable t) {
+            public void onFailure(Call<DonorResponse> call, Throwable t) {
                 dialog.dismiss();
             }
         });
@@ -111,7 +108,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
         rvAllDonor.setLayoutManager(linearLayoutManager);
         rvAllDonor.setItemAnimator(new DefaultItemAnimator());
         rvAllDonor.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        allDonorAdapter = new AllDonorAdapter(allDonor, this);
+        allDonorAdapter = new DonorAdapter(allDonor, this);
         rvAllDonor.setAdapter(allDonorAdapter);
     }
 

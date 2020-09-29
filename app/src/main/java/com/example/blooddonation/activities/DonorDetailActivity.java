@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.blooddonation.R;
-import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
+import com.example.blooddonation.models.donorModel.DonorDataModel;
 import com.example.blooddonation.utils.GeneralUtills;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class DonorDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int REQUEST_PHONE_CALL = 1;
     @BindView(R.id.civEditProfilePic)
     CircleImageView civProfilePic;
@@ -56,13 +57,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     Button btnCall;
 
     String strUserId;
-    ArrayList<AllDonorDataModel> itemModels = new ArrayList<>();
+    ArrayList<DonorDataModel> itemModels = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_donor_detail);
 
         strUserId = GeneralUtills.getSharedPreferences(this).getString("user_id", "");
 
@@ -79,7 +80,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
         if (bundle != null) {
 
-            Glide.with(EditProfileActivity.this).load(bundle.getString("profile_image")).placeholder(R.drawable.profile_image).into(civProfilePic);
+            Glide.with(DonorDetailActivity.this).load(bundle.getString("profile_image")).placeholder(R.drawable.profile_image).into(civProfilePic);
 
             tvEmailProfile.setText(bundle.getString("email"));
             tvAgeProfile.setText(bundle.getString("age"));
@@ -102,6 +103,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     private void SentdSMS(String phone, String msg) {
 
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", phone, null)));
+
+        /*
+
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
             try {
@@ -118,7 +123,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 10);
             }
-        }
+        }*/
     }
 
     @Override

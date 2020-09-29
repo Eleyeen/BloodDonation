@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.blooddonation.models.Forgot.ForgotRespones;
-import com.example.blooddonation.Network.APIClient;
-import com.example.blooddonation.Network.ApiInterface;
+import com.example.blooddonation.models.forgot.ForgotRespones;
+import com.example.blooddonation.network.APIClient;
+import com.example.blooddonation.network.ApiInterface;
 import com.example.blooddonation.R;
 import com.example.blooddonation.utils.GeneralUtills;
 

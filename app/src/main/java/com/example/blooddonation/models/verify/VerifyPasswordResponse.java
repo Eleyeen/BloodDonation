@@ -1,5 +1,5 @@
 
-package com.example.blooddonation.models.Verify;
+package com.example.blooddonation.models.verify;
 
 import com.google.gson.annotations.SerializedName;
 

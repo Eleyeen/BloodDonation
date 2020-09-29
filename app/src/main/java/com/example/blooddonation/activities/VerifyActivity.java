@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.blooddonation.models.Verify.VerifyPasswordResponse;
-import com.example.blooddonation.Network.APIClient;
-import com.example.blooddonation.Network.ApiInterface;
+import com.example.blooddonation.models.verify.VerifyPasswordResponse;
+import com.example.blooddonation.network.APIClient;
+import com.example.blooddonation.network.ApiInterface;
 import com.example.blooddonation.R;
 
 import org.json.JSONObject;

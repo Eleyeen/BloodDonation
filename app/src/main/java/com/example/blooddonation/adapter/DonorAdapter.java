@@ -16,24 +16,24 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.blooddonation.activities.EditProfileActivity;
+import com.example.blooddonation.activities.DonorDetailActivity;
 import com.example.blooddonation.R;
-import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
+import com.example.blooddonation.models.donorModel.DonorDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHolder> {
+public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.ViewHolder> {
 
-    List<AllDonorDataModel> getAllDonorModels;
-    List<AllDonorDataModel> filterAllDonorModels;
+    List<DonorDataModel> getAllDonorModels;
+    List<DonorDataModel> filterAllDonorModels;
     Context context;
 
     ArrayList<String> stringArrayList = new ArrayList<>();
 
-    public AllDonorAdapter(List<AllDonorDataModel> allDonorModel, Context context) {
+    public DonorAdapter(List<DonorDataModel> allDonorModel, Context context) {
         this.getAllDonorModels = allDonorModel;
         this.filterAllDonorModels=allDonorModel;
         this.context = context;
@@ -41,7 +41,7 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
 
     @NonNull
     @Override
-    public AllDonorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DonorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custoom_all_donor, parent, false);
 
 
@@ -49,8 +49,8 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllDonorAdapter.ViewHolder holder, int position) {
-        final AllDonorDataModel getAllDonorModel = getAllDonorModels.get(position);
+    public void onBindViewHolder(@NonNull DonorAdapter.ViewHolder holder, int position) {
+        final DonorDataModel getAllDonorModel = getAllDonorModels.get(position);
 
         Glide.with(context).load(getAllDonorModel.getProfileImage()).placeholder(R.drawable.profile_image).into(holder.circleImageView);
         holder.tvName.setText(getAllDonorModel.getFullname());
@@ -71,7 +71,7 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context, EditProfileActivity.class);
+                Intent intent = new Intent(context, DonorDetailActivity.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putString("profile_image", getAllDonorModel.getProfileImage());
@@ -123,8 +123,8 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
                 if (charSequenceString.isEmpty()) {
                     getAllDonorModels = filterAllDonorModels;
                 } else {
-                    List<AllDonorDataModel> filteredList = new ArrayList<>();
-                    for (AllDonorDataModel name : filterAllDonorModels) {
+                    List<DonorDataModel> filteredList = new ArrayList<>();
+                    for (DonorDataModel name : filterAllDonorModels) {
                         if (name.getFullname().toLowerCase().contains(charSequenceString.toLowerCase()) || name.getFullname().contains(charSequenceString)) {
                             filteredList.add(name);
                         }
@@ -139,7 +139,7 @@ public class AllDonorAdapter extends RecyclerView.Adapter<AllDonorAdapter.ViewHo
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                getAllDonorModels = (List<AllDonorDataModel>) results.values;
+                getAllDonorModels = (List<DonorDataModel>) results.values;
                 notifyDataSetChanged();
             }
         };

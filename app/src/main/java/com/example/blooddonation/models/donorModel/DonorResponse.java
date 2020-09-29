@@ -1,15 +1,16 @@
 
-package com.example.blooddonation.models.NearModel;
+package com.example.blooddonation.models.donorModel;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class NearByResponesModel {
+import java.util.List;
+
+public class DonorResponse {
 
     @SerializedName("code")
     private Long mCode;
     @SerializedName("data")
-    private List<Datum> mData;
+    private List<DonorDataModel> mData;
     @SerializedName("message")
     private String mMessage;
     @SerializedName("status")
@@ -23,11 +24,11 @@ public class NearByResponesModel {
         mCode = code;
     }
 
-    public List<Datum> getData() {
+    public List<DonorDataModel> getData() {
         return mData;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<DonorDataModel> data) {
         mData = data;
     }
 

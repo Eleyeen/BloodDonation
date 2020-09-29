@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, root);
         initListener();
         filterSearchView = root.findViewById(R.id.searchView);
-        filterSearchView.setQueryHint("Search blood donor");
+
 
 
         setupViewPager(viewPager);

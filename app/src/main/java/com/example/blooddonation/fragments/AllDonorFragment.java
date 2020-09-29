@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blooddonation.Network.BaseNetworking;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
-import com.example.blooddonation.adapter.AllDonorAdapter;
+import com.example.blooddonation.adapter.DonorAdapter;
 import com.example.blooddonation.fragments.home.HomeFragment;
-import com.example.blooddonation.models.GetDonor.AllDonorDataModel;
-import com.example.blooddonation.models.GetDonor.AllDonorResponse;
+import com.example.blooddonation.models.donorModel.DonorDataModel;
+import com.example.blooddonation.models.donorModel.DonorResponse;
 import com.example.blooddonation.utils.AlertUtils;
 
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ import retrofit2.Response;
 
 public class AllDonorFragment extends Fragment {
     private View view;
-    AllDonorAdapter allDonorAdapter;
+    DonorAdapter allDonorAdapter;
     LinearLayoutManager linearLayoutManager;
-    public static ArrayList<AllDonorDataModel> allDonorDataModels = new ArrayList<>();
+    public static ArrayList<DonorDataModel> allDonorDataModels = new ArrayList<>();
 
     @BindView(R.id.rvAllDonor)
     RecyclerView rvAllDonor;
@@ -65,10 +65,10 @@ public class AllDonorFragment extends Fragment {
         dialog.show();
         allDonorDataModels.clear();
 
-        Call<AllDonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().getalldonors();
-        getUserResponseModelCall.enqueue(new Callback<AllDonorResponse>() {
+        Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().getalldonors();
+        getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
             @Override
-            public void onResponse(Call<AllDonorResponse> call, Response<AllDonorResponse> response) {
+            public void onResponse(Call<DonorResponse> call, Response<DonorResponse> response) {
 
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
@@ -88,7 +88,7 @@ public class AllDonorFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<AllDonorResponse> call, Throwable t) {
+            public void onFailure(Call<DonorResponse> call, Throwable t) {
                 Log.d("zma error", String.valueOf(t));
                 dialog.show();
 
@@ -101,9 +101,8 @@ public class AllDonorFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvAllDonor.setLayoutManager(linearLayoutManager);
         rvAllDonor.setItemAnimator(new DefaultItemAnimator());
-        rvAllDonor.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
 
-        allDonorAdapter = new AllDonorAdapter(allDonorDataModels, getActivity());
+        allDonorAdapter = new DonorAdapter(allDonorDataModels, getActivity());
         rvAllDonor.setAdapter(allDonorAdapter);
 
         HomeFragment.filterSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

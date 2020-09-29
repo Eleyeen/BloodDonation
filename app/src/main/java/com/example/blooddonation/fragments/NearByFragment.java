@@ -11,17 +11,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blooddonation.adapter.NearByAdapter;
-import com.example.blooddonation.models.NearModel.Datum;
-import com.example.blooddonation.models.NearModel.NearByResponesModel;
-import com.example.blooddonation.Network.BaseNetworking;
+import com.example.blooddonation.adapter.DonorAdapter;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
+import com.example.blooddonation.fragments.home.HomeFragment;
+import com.example.blooddonation.models.donorModel.DonorDataModel;
+import com.example.blooddonation.models.donorModel.DonorResponse;
 import com.example.blooddonation.utils.AlertUtils;
 import com.example.blooddonation.utils.GeneralUtills;
 
@@ -36,9 +38,9 @@ import retrofit2.Response;
 
 public class NearByFragment extends Fragment {
     private View view;
-    NearByAdapter nearByAdapter;
+    DonorAdapter donorAdapter;
     LinearLayoutManager linearLayoutManager;
-    public static ArrayList<Datum> allDonor = new ArrayList<>();
+    public static ArrayList<DonorDataModel> allDonor = new ArrayList<>();
     private Parcelable state;
 
     @BindView(R.id.rvNearBy)
@@ -67,16 +69,16 @@ public class NearByFragment extends Fragment {
     private void APiNearBy(String strCityName) {
         dialog.show();
         allDonor.clear();
-        Call<NearByResponesModel> getUserResponseModelCall = BaseNetworking.apiServices().GetNearBy(strCityName);
-        getUserResponseModelCall.enqueue(new Callback<NearByResponesModel>() {
+        Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetNearBy(strCityName);
+        getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
             @Override
-            public void onResponse(Call<NearByResponesModel> call, Response<NearByResponesModel> response) {
+            public void onResponse(Call<DonorResponse> call, Response<DonorResponse> response) {
 
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
                     allDonor.addAll(response.body().getData());
                     Collections.reverse(allDonor);
-                    nearByAdapter.notifyDataSetChanged();
+                    donorAdapter.notifyDataSetChanged();
                     dialog.dismiss();
                 }else {
                     dialog.dismiss();
@@ -89,7 +91,7 @@ public class NearByFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<NearByResponesModel> call, Throwable t) {
+            public void onFailure(Call<DonorResponse> call, Throwable t) {
                 Log.d("zma error", String.valueOf(t));
                 dialog.dismiss();
 
@@ -102,39 +104,23 @@ public class NearByFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvNearBy.setLayoutManager(linearLayoutManager);
         rvNearBy.setItemAnimator(new DefaultItemAnimator());
-        rvNearBy.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL));
+        donorAdapter = new DonorAdapter(allDonor, getActivity());
+        rvNearBy.setAdapter(donorAdapter);
 
-        nearByAdapter = new NearByAdapter(allDonor, getActivity());
-        rvNearBy.setAdapter(nearByAdapter);
 
-//        HomeFragment.filterSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String queryString) {
-//                nearByAdapter.getFilter().filter(queryString);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String queryString) {
-//                nearByAdapter.getFilter().filter(queryString);
-//                return false;
-//            }
-//        });
+        HomeFragment.filterSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String queryString) {
+                donorAdapter.getFilter().filter(queryString);
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String queryString) {
+                donorAdapter.getFilter().filter(queryString);
+                return false;
+            }
+        });
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
 
 }

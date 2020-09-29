@@ -1,12 +1,11 @@
-package com.example.blooddonation.Network;
+package com.example.blooddonation.network;
 
-import com.example.blooddonation.models.Forgot.ForgotRespones;
-import com.example.blooddonation.models.GetBloodGroupModel.GetBloodGroupNameModel;
-import com.example.blooddonation.models.GetDonor.AllDonorResponse;
-import com.example.blooddonation.models.Login.LoginRespones;
-import com.example.blooddonation.models.NearModel.NearByResponesModel;
-import com.example.blooddonation.models.Verify.VerifyPasswordResponse;
+import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupResponse;
+import com.example.blooddonation.models.verify.VerifyPasswordResponse;
 import com.example.blooddonation.models.changePassword.ChangePasswordResponse;
+import com.example.blooddonation.models.donorModel.DonorResponse;
+import com.example.blooddonation.models.forgot.ForgotRespones;
+import com.example.blooddonation.models.loginModel.LoginRespones;
 import com.example.blooddonation.models.signUpModel.SignUpRespones;
 
 import okhttp3.MultipartBody;
@@ -78,24 +77,23 @@ public interface ApiInterface {
             @Field("newPassword") String code);
 
     @GET("getalldonors")
-    Call<AllDonorResponse> getalldonors();
+    Call<DonorResponse> getalldonors();
 
     @GET("getgroups")
-    Call<GetBloodGroupNameModel> getgroups();
+    Call<GetBloodGroupResponse> getgroups();
 
     @GET("bloodgroups?")
-    Call<AllDonorResponse> getalldonorLogin(
+    Call<DonorResponse> getalldonorLogin(
             @Query("user_id") String userId);
 
     @GET("getNearBy?")
-    Call<NearByResponesModel> GetNearBy(
+    Call<DonorResponse> GetNearBy(
             @Query("cityname") String userCity
     );
 
     @GET("searchdonors?")
-    Call<AllDonorResponse> GetSearchBloodGroup(
-            @Query("group_id") String userGroupId
-    );
+    Call<DonorResponse> GetSearchBloodGroup(
+            @Query("group_id") String userGroupId);
 
 
 }
