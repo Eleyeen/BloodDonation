@@ -49,6 +49,9 @@ public class NearByFragment extends Fragment {
     Dialog dialog;
 
 
+    @BindView(R.id.searchView)
+    SearchView searchView;
+
     @BindView(R.id.tvNoDonorFound)
     TextView tvNoDonorFound;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -108,7 +111,7 @@ public class NearByFragment extends Fragment {
         rvNearBy.setAdapter(donorAdapter);
 
 
-        HomeFragment.filterSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryString) {
                 donorAdapter.getFilter().filter(queryString);

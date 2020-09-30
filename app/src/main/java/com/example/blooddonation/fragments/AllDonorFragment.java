@@ -46,6 +46,8 @@ public class AllDonorFragment extends Fragment {
     TextView tvNoDonorFound;
     Dialog dialog;
 
+    @BindView(R.id.searchView)
+    SearchView searchView;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,7 +107,7 @@ public class AllDonorFragment extends Fragment {
         allDonorAdapter = new DonorAdapter(allDonorDataModels, getActivity());
         rvAllDonor.setAdapter(allDonorAdapter);
 
-        HomeFragment.filterSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryString) {
                 allDonorAdapter.getFilter().filter(queryString);

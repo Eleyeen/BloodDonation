@@ -30,7 +30,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ViewPager viewPager;
     @BindView(R.id.sliding_tabs)
     TabLayout tabLayout;
-    public static SearchView filterSearchView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +38,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         ButterKnife.bind(this, root);
         initListener();
-        filterSearchView = root.findViewById(R.id.searchView);
 
 
 
@@ -82,21 +80,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onPageSelected(int i) {
-
-                if (i == 0) {
-
-                    filterSearchView.setVisibility(View.GONE);
-
-                }
-                if (i == 1) {
-                    filterSearchView.setVisibility(View.VISIBLE);
-
-                }else {
-                    filterSearchView.setVisibility(View.GONE);
-
-                }
-
-
                 viewPager.setCurrentItem(i);
             }
 

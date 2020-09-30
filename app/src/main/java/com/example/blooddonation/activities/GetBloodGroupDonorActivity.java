@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,11 +34,9 @@ import retrofit2.Response;
 
 public class GetBloodGroupDonorActivity extends AppCompatActivity implements View.OnClickListener {
 
-    DonorAdapter allDonorAdapter;
+    DonorAdapter donorAdapter;
     LinearLayoutManager linearLayoutManager;
     public static ArrayList<DonorDataModel> allDonor = new ArrayList<>();
-
-
     @BindView(R.id.rvAllDonor)
     RecyclerView rvAllDonor;
     @BindView(R.id.tvBloodGroup)
@@ -46,8 +45,11 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
     ImageView ivBack;
     @BindView(R.id.tvNoDonorFound)
     TextView tvNoDonorFound;
-
     Dialog dialog;
+
+    @BindView(R.id.searchView)
+    SearchView searchView;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -81,7 +83,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
                 Log.d("zma response", String.valueOf(response.message()));
                 if (response.isSuccessful()) {
                     allDonor.addAll(response.body().getData());
-                    allDonorAdapter.notifyDataSetChanged();
+                    donorAdapter.notifyDataSetChanged();
                     dialog.dismiss();
                     if (allDonor.size() == 0) {
                         tvNoDonorFound.setVisibility(View.VISIBLE);
@@ -108,8 +110,23 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
         rvAllDonor.setLayoutManager(linearLayoutManager);
         rvAllDonor.setItemAnimator(new DefaultItemAnimator());
         rvAllDonor.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        allDonorAdapter = new DonorAdapter(allDonor, this);
-        rvAllDonor.setAdapter(allDonorAdapter);
+        donorAdapter = new DonorAdapter(allDonor, this);
+        rvAllDonor.setAdapter(donorAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String queryString) {
+                donorAdapter.getFilter().filter(queryString);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String queryString) {
+                donorAdapter.getFilter().filter(queryString);
+                return false;
+            }
+        });
+
     }
 
     @OnClick({R.id.ivBack})

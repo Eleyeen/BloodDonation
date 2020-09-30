@@ -100,7 +100,6 @@ public class DonorDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     private void SentdSMS(String phone, String msg) {
 
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", phone, null)));
