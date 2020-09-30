@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.blooddonation.models.forgot.ForgotRespones;
+import com.example.blooddonation.models.forgotModel.ForgotRespones;
 import com.example.blooddonation.network.APIClient;
 import com.example.blooddonation.network.ApiInterface;
 import com.example.blooddonation.R;

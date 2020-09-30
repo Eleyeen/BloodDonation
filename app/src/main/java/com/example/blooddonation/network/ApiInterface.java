@@ -1,10 +1,10 @@
 package com.example.blooddonation.network;
 
 import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupResponse;
-import com.example.blooddonation.models.verify.VerifyPasswordResponse;
+import com.example.blooddonation.models.verifyModel.VerifyPasswordResponse;
 import com.example.blooddonation.models.changePassword.ChangePasswordResponse;
 import com.example.blooddonation.models.donorModel.DonorResponse;
-import com.example.blooddonation.models.forgot.ForgotRespones;
+import com.example.blooddonation.models.forgotModel.ForgotRespones;
 import com.example.blooddonation.models.loginModel.LoginRespones;
 import com.example.blooddonation.models.signUpModel.SignUpRespones;
 

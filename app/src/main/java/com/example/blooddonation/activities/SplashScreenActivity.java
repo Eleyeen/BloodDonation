@@ -9,20 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.blooddonation.R;
 import com.example.blooddonation.utils.GeneralUtills;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash_screen);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (GeneralUtills.isLogin(MainActivity.this)) {
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                if (GeneralUtills.isLogin(SplashScreenActivity.this)) {
+                    startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
                 } else {
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
 
                 }
                 finish();

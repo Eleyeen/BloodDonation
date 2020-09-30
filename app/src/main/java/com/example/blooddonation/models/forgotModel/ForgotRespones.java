@@ -1,5 +1,5 @@
 
-package com.example.blooddonation.models.forgot;
+package com.example.blooddonation.models.forgotModel;
 
 import com.google.gson.annotations.SerializedName;
 
