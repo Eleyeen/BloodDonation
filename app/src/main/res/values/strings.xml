@@ -2,5 +2,24 @@
     <string name="app_name">Blood Donation</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood">Simply Blood is a FREE blood Donation app available for Android smartphones. Simply Blood searches, notifies and connect thousands of blood donors in three simple steps. Simply Blood donation app ensures hassle free blood donation and privacy of a blood donor. A blood donor can select any specific date and location to donate blood and find a suitable person who needs blood. Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
+    <string name="simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood"><b>NO FEES:</b>Simply Blood is a FREE blood Donation app available for Android smartphones. Simply Blood searches, notifies and connect thousands of blood donors in three simple steps. Simply Blood donation app ensures hassle free blood donation and privacy of a blood donor. A blood donor can select any specific date and location to donate blood and find a suitable person who needs blood. Connecting blood donors and needy reduces time which increases the possibility of saving lives and also eliminates the shortage of blood.</string>
+    <string name="no_fee">NO FEES: Simply Blood uses your phone\'s network to let you find and connect people for blood requirements. Simply Blood don\'t charge any fees for its services and you don\'t have to pay to any blood donor as well for any blood donation. There is no subscription fees to use Simply Blood.</string>
+
+    <string name="serch_blood_doner"><b>SEARCH BLOOD DONOR </b>
+        In most of the apps user get to see hundreds of contact numbers which takes hours to find a suitable blood donor. Calling hundreds of blood donors is not required with Simply Blood. Just a single search allows you to reach maximum number of blood donors in minimum possible time and that too within city.</string>
+    <string name="privacy"><b>PRIVACY</b>
+        Apart from other blood donation apps available Simply Blood don\'t show donor\'s contact details to public. Only a verified user can see your contact that too to a limited number of contact details.</string>
+    <string name="user_name"><b>USERNAME -</b>
+        Create username to avoid your number being visible to other member. Saves your blood donation history</string>
+
+    <string name="social_media_integration"><b>SOCIAL MEDIA INTEGRATION - </b>
+    You may integrate your social media accounts to share the requirements through your social media
+    accounts.</string>
+    <string name="and_more"><b>AND MORE -</b>
+        Saves your blood donation history, can see current blood requirements, Safe Searching, Easy Sign Up and Login</string>
+    <string name="dr_zakaria_sahib">Dr. Zakaria sahib</string>
+    <string name="supervised_by">Supervised by </string>
+    <string name="submitted_by">Submitted By </string>
+
+
 </resources>

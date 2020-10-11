@@ -16,11 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.blooddonation.R;
 import com.example.blooddonation.models.loginModel.LoginRespones;
 import com.example.blooddonation.network.APIClient;
 import com.example.blooddonation.network.ApiInterface;
-import com.example.blooddonation.R;
 import com.example.blooddonation.utils.AlertUtils;
+import com.example.blooddonation.utils.Connectivity;
 import com.example.blooddonation.utils.GeneralUtills;
 
 import org.json.JSONException;
@@ -33,6 +34,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.security.AccessController.getContext;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.etEmailLogin)
@@ -117,6 +120,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             etPassword.setError(null);
         }
+        if (!Connectivity.isConnected(this)) {
+            valid = false;
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+        } else {
+            valid = true;
+        }
 
         return valid;
     }
@@ -146,7 +155,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_area", response.body().getData().getArea());
 
 
-
                     GeneralUtills.putBooleanValueInEditor(LoginActivity.this, "isLogin", true);
                     finishAffinity();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
@@ -154,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        Log.d("zama error",String.valueOf( jsonObject.getString("message")));
+                        Log.d("zama error", String.valueOf(jsonObject.getString("message")));
 
 
                     } catch (JSONException e) {
@@ -169,7 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFailure(Call<LoginRespones> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, String.valueOf(t), Toast.LENGTH_SHORT).show();
-                Log.d("zama error",String.valueOf(t));
+                Log.d("zama error", String.valueOf(t));
                 dialog.dismiss();
             }
         });

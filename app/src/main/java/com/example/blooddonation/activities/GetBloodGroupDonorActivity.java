@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +17,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blooddonation.adapter.DonorAdapter;
-import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
+import com.example.blooddonation.adapter.DonorAdapter;
 import com.example.blooddonation.models.donorModel.DonorDataModel;
 import com.example.blooddonation.models.donorModel.DonorResponse;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.utils.AlertUtils;
+import com.example.blooddonation.utils.Connectivity;
 
 import java.util.ArrayList;
 
@@ -51,22 +53,26 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
     SearchView searchView;
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_blood_group_donor);
         ButterKnife.bind(this);
-        dialog= AlertUtils.createProgressDialog(this);
+        dialog = AlertUtils.createProgressDialog(this);
 
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            APiGetAllDonorLogin(bundle.getString("bloodgroup_id"));
-            tvBloodGroup.setText(bundle.getString("bloodgroup_name"));
+            if (!Connectivity.isConnected(this)) {
+                Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                APiGetAllDonorLogin(bundle.getString("bloodgroup_id"));
+                tvBloodGroup.setText(bundle.getString("bloodgroup_name"));
+            }
 
         }
+
         recylcerView();
 
     }
@@ -74,7 +80,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void APiGetAllDonorLogin(String strUserId) {
         allDonor.clear();
-        Log.d("zma id",strUserId);
+        Log.d("zma id", strUserId);
         dialog.show();
         Call<DonorResponse> getUserResponseModelCall = BaseNetworking.apiServices().GetSearchBloodGroup(strUserId);
         getUserResponseModelCall.enqueue(new Callback<DonorResponse>() {
@@ -90,7 +96,7 @@ public class GetBloodGroupDonorActivity extends AppCompatActivity implements Vie
                     } else {
                         tvNoDonorFound.setVisibility(View.GONE);
                     }
-                }else {
+                } else {
                     dialog.dismiss();
                 }
             }

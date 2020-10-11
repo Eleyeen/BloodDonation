@@ -28,16 +28,17 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.blooddonation.network.APIClient;
-import com.example.blooddonation.network.ApiInterface;
-import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
 import com.example.blooddonation.adapter.AutoCompleteIngredientsAdapter;
 import com.example.blooddonation.interfaces.BloodGroupItemId;
 import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupDataModel;
 import com.example.blooddonation.models.bloodGroupNameModel.GetBloodGroupResponse;
 import com.example.blooddonation.models.signUpModel.SignUpRespones;
+import com.example.blooddonation.network.APIClient;
+import com.example.blooddonation.network.ApiInterface;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.utils.AlertUtils;
+import com.example.blooddonation.utils.Connectivity;
 import com.example.blooddonation.utils.GeneralUtills;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -65,6 +66,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.security.AccessController.getContext;
 
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, BloodGroupItemId, RadioGroup.OnCheckedChangeListener {
@@ -222,6 +225,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             valid = false;
         }
 
+        if (!Connectivity.isConnected(this)) {
+            valid = false;
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+        } else {
+            valid = true;
+        }
+
 
         return valid;
     }
@@ -334,8 +344,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
-
     @Override
     public void bloodGroupItem(String id) {
         strItemBloodGroup = id;
@@ -406,7 +414,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
             Uri selectedImageUri = data.getData();
             String imagepath = getPath(selectedImageUri);
-            sourceFile=new File(imagepath);
+            sourceFile = new File(imagepath);
 
             civProfile.setImageURI(selectedImageUri);
 

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.AboutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_bottom">
+
 
 
     <TextView
@@ -33,7 +41,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:text="Who we Are"/>
+        android:text="Who we Are" />
 
 
     <TextView
@@ -45,9 +53,8 @@
         android:layout_marginTop="@dimen/padding_left_right"
         android:layout_margin="@dimen/padding_left_right"
         android:textSize="14sp"
-        android:text="@string/simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood"/>
+        android:text="@string/simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood" />
 
-<!--
 
     <TextView
         android:id="@+id/tvvWhatWeDo"
@@ -61,7 +68,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:text="Who we Are"/>
+        android:text="What we Do" />
 
 
     <TextView
@@ -73,7 +80,87 @@
         android:layout_marginTop="@dimen/padding_left_right"
         android:layout_margin="@dimen/padding_left_right"
         android:textSize="14sp"
-        android:text="@string/simply_blood_is_a_free_blood_donation_app_available_for_android_smartphones_simply_blood_searches_notifies_and_connect_thousands_of_blood_donors_in_three_simple_steps_simply_blood_donation_app_ensures_hassle_free_blood_donation_and_privacy_of_a_blood_donor_a_blood_donor_can_select_any_specific_date_and_location_to_donate_blood_and_find_a_suitable_person_who_needs_blood_connecting_blood_donors_and_needy_reduces_time_which_increases_the_possibility_of_saving_lives_and_also_eliminates_the_shortage_of_blood"/>
--->
+        android:text="@string/no_fee" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvvWhatWeDo"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="@string/serch_blood_doner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvvWhatWeDo"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="@string/privacy" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvWhoWeAreDetail"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingLeft="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/supervised_by" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvvWhatWeDo"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:layout_margin="@dimen/padding_left_right"
+        android:textSize="14sp"
+        android:text="@string/dr_zakaria_sahib" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvWhoWeAreDetail"
+            android:layout_marginTop="@dimen/padding_left_right"
+            android:paddingLeft="@dimen/padding_left_right"
+            android:paddingRight="@dimen/padding_left_right"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="@string/submitted_by" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:text="Abu Bakar  Reg No: AWKUM-16000908" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:text="Zain ullah	Reg No: AWKUM-16001003" />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

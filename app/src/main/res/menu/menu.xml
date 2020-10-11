@@ -21,4 +21,11 @@
         app:showAsAction="never" />
 
 
+
+    <item android:id="@+id/search"
+        android:title="Search"
+        android:icon="@drawable/blood_donation"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
+
 </menu>

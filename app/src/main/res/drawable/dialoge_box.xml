@@ -12,7 +12,5 @@
         android:centerColor="#00FFFFFF"
         android:endColor="#00FFFFFF"
         android:startColor="#00FFFFFF"
-        android:type="linear"
-
-        />
+        android:type="linear"/>
 </shape>
