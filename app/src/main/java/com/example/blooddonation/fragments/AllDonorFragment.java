@@ -5,22 +5,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
 import com.example.blooddonation.adapter.DonorAdapter;
-import com.example.blooddonation.fragments.home.HomeFragment;
 import com.example.blooddonation.models.donorModel.DonorDataModel;
 import com.example.blooddonation.models.donorModel.DonorResponse;
 import com.example.blooddonation.utils.AlertUtils;
@@ -46,8 +48,6 @@ public class AllDonorFragment extends Fragment {
     TextView tvNoDonorFound;
     Dialog dialog;
 
-    @BindView(R.id.searchView)
-    SearchView searchView;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +55,7 @@ public class AllDonorFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_all_donor, container, false);
         ButterKnife.bind(this, view);
         dialog = AlertUtils.createProgressDialog(getActivity());
+        setHasOptionsMenu(true);
 
         recylcerView();
         APiGetAllDonor();
@@ -107,6 +108,30 @@ public class AllDonorFragment extends Fragment {
         allDonorAdapter = new DonorAdapter(allDonorDataModels, getActivity());
         rvAllDonor.setAdapter(allDonorAdapter);
 
+      /*  searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String queryString) {
+                allDonorAdapter.getFilter().filter(queryString);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String queryString) {
+                allDonorAdapter.getFilter().filter(queryString);
+                return false;
+            }
+        });*/
+
+
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryString) {
@@ -120,7 +145,6 @@ public class AllDonorFragment extends Fragment {
                 return false;
             }
         });
-
 
     }
 }

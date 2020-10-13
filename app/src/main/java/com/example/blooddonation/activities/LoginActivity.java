@@ -35,8 +35,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static java.security.AccessController.getContext;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.etEmailLogin)
     EditText etEmail;
@@ -55,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CheckBox cbRememberMe;
     String strUserEmail, strUserPassword;
     Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean inValid() {
         boolean valid = true;
+
         strUserEmail = etEmail.getText().toString();
         strUserPassword = etPassword.getText().toString();
 
@@ -115,7 +115,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (strUserPassword.isEmpty() || strUserPassword.length() < 6) {
             etPassword.setError("Password should be more than 6 characters");
-
             valid = false;
         } else {
             etPassword.setError(null);
@@ -123,8 +122,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!Connectivity.isConnected(this)) {
             valid = false;
             Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
-        } else {
-            valid = true;
         }
 
         return valid;
@@ -141,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(Call<LoginRespones> call, Response<LoginRespones> response) {
 
-                if (response.isSuccessful()) {
+                if (response.body().getStatus()) {
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_id", String.valueOf(response.body().getData().getId()));
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_name", response.body().getData().getFullname());
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_email", response.body().getData().getEmail());
@@ -153,12 +150,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_gender", response.body().getData().getGender());
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_profile_image", response.body().getData().getProfileImage());
                     GeneralUtills.putStringValueInEditor(LoginActivity.this, "user_area", response.body().getData().getArea());
-
-
                     GeneralUtills.putBooleanValueInEditor(LoginActivity.this, "isLogin", true);
                     finishAffinity();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 } else {
+
+                    dialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "invalid email Or password", Toast.LENGTH_SHORT).show();
+
+                }
+
+                if (!response.isSuccessful()) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

@@ -25,6 +25,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.example.blooddonation.BuildConfig;
 import com.example.blooddonation.R;
 import com.example.blooddonation.utils.GeneralUtills;
@@ -32,6 +33,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -40,13 +42,9 @@ public class HomeActivity extends AppCompatActivity {
     TextView tvNavName;
     @BindView(R.id.tvNavEmail)
     TextView tvNavEmail;
+    @BindView(R.id.civProfileHeader)
+    CircleImageView civProfileHeader;
     Dialog dialog;
-
-
-
-
-
-
 
 
     @Override
@@ -59,7 +57,6 @@ public class HomeActivity extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-
 
 
         View headerView = navigationView.getHeaderView(0);
@@ -92,8 +89,9 @@ public class HomeActivity extends AppCompatActivity {
         String name = GeneralUtills.getUserName(this);
         tvNavName.setText(name);
         tvNavEmail.setText(GeneralUtills.getUserEmail(this));
-    }
+        Glide.with(this).load(GeneralUtills.getSharedPreferences(this).getString("user_profile_image","")).into(civProfileHeader);
 
+    }
 
 
     @Override
@@ -118,11 +116,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu_search) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu, menu_search);
 
-        return super.onCreateOptionsMenu(menu);
+        return super.onCreateOptionsMenu(menu_search);
     }
 
     private void shareApp() {

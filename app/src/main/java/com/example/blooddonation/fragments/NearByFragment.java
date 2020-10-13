@@ -6,24 +6,26 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blooddonation.adapter.DonorAdapter;
-import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.R;
-import com.example.blooddonation.fragments.home.HomeFragment;
+import com.example.blooddonation.adapter.DonorAdapter;
 import com.example.blooddonation.models.donorModel.DonorDataModel;
 import com.example.blooddonation.models.donorModel.DonorResponse;
+import com.example.blooddonation.network.BaseNetworking;
 import com.example.blooddonation.utils.AlertUtils;
 import com.example.blooddonation.utils.GeneralUtills;
 
@@ -49,20 +51,18 @@ public class NearByFragment extends Fragment {
     Dialog dialog;
 
 
-    @BindView(R.id.searchView)
-    SearchView searchView;
-
     @BindView(R.id.tvNoDonorFound)
     TextView tvNoDonorFound;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         dialog = AlertUtils.createProgressDialog(getActivity());
         strCityName = GeneralUtills.getSharedPreferences(getActivity()).getString("user_area", "");
-
+        setHasOptionsMenu(true);
         APiNearBy(strCityName);
         recylcerView();
         return view;
@@ -83,7 +83,7 @@ public class NearByFragment extends Fragment {
                     Collections.reverse(allDonor);
                     donorAdapter.notifyDataSetChanged();
                     dialog.dismiss();
-                }else {
+                } else {
                     dialog.dismiss();
                 }
                 if (allDonor.size() == 0) {
@@ -109,9 +109,16 @@ public class NearByFragment extends Fragment {
         rvNearBy.setItemAnimator(new DefaultItemAnimator());
         donorAdapter = new DonorAdapter(allDonor, getActivity());
         rvNearBy.setAdapter(donorAdapter);
+    }
 
 
-       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryString) {
                 donorAdapter.getFilter().filter(queryString);

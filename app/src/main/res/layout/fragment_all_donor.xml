@@ -15,18 +15,9 @@
         android:text="No Donor Found"
         android:gravity="center_horizontal" />
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:queryHint="Search blood donor"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchView"
         android:id="@+id/rvAllDonor" />
 </RelativeLayout>

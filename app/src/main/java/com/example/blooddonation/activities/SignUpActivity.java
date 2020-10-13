@@ -67,8 +67,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static java.security.AccessController.getContext;
-
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, BloodGroupItemId, RadioGroup.OnCheckedChangeListener {
     final int CAMERA_CAPTURE = 1;
@@ -120,6 +118,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Dialog dialog;
     String strName, strBloodGroup = "null", strEmail, strPassword, strPhoneNumber, strAge, strWeight, strArea, strGender;
 
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +160,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean validate() {
         boolean valid = true;
+
         strName = etNameSignUp.getText().toString();
         strEmail = etEmailSignUp.getText().toString();
         strPassword = etPassword.getText().toString();
@@ -228,8 +228,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (!Connectivity.isConnected(this)) {
             valid = false;
             Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
-        } else {
-            valid = true;
         }
 
 
